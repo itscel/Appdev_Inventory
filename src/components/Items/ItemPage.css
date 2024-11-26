@@ -1,0 +1,12 @@
+.item-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.item-content {
+    margin: 10px;
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    width: auto;
+}

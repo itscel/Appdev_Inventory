@@ -1,0 +1,13 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    margin: 10px;
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    width: auto;
+}

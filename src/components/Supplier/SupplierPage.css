@@ -1,0 +1,12 @@
+.supplier-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+.supplier-content {
+    margin: 10px;
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+}
