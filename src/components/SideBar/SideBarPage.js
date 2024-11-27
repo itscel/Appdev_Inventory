@@ -10,31 +10,35 @@ const SidebarPage = () => {
     const handleButtonClick = (page) => {
         if (page === 'dashboard') {
             navigate('/');
-            setShowPage(false); // Close slide page
+            setShowPage(false);
         } else if (page === 'items') {
             navigate('/items');
-            setShowPage(false); // Close slide page
+            setShowPage(false);
         } else if (page === 'supplier') {
             if (activePage === 'supplier' && showPage) {
-                setShowPage(false); // Close slide page if already open
+                setShowPage(false);
             } else {
                 setActivePage('supplier');
-                setShowPage(true); // Open slide page
+                setShowPage(true);
             }
         } else {
             setActivePage(page);
-            setShowPage(!showPage); // Toggle for other pages
+            setShowPage(!showPage);
         }
     };
 
     const renderContent = () => {
         switch (activePage) {
-            case 'items':
-                return <button onClick={() => navigate('/supplier')}>All Items</button>;
             case 'supplier':
-                return <h1>Supplier Details</h1>; // Example content for supplier
+                return (
+                    <div>
+                        <button onClick={() => navigate('/supplier')}>
+                            All Supplier
+                        </button>
+                    </div>
+                );
             default:
-                return <h1>Options Here</h1>;
+                return <h1>Select an Option</h1>;
         }
     };
 
