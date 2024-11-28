@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SidebarPage from '../SideBar/SideBarPage';
 import './DashboardPage.css';
 
-const ItemPage = () => {
+const DashboardPage = () => {
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token'); 
+        if (!token) {
+            navigate('/login');
+        }
+    }, [navigate]);
+
     return (
         <div className="dashboard-container">
             <div className="sidebar-container">
@@ -10,10 +20,10 @@ const ItemPage = () => {
             </div>
             <div className="dashboard-content">
                 <h1>Dashboard Page</h1>
-                <p>This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.This is where you can manage or view your items.</p>
+                <p>This is where you can manage or view your items.</p>
             </div>
         </div>
     );
 };
 
-export default ItemPage;
+export default DashboardPage;

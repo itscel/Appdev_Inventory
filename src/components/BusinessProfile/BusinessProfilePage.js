@@ -10,8 +10,7 @@ const BusinessProfilePage = ({ login }) => {
 
   const handleSubmit = () => {
     if (companyName && companyIndustry && trackingItem) {
-      // Set user as authenticated after completing business profile setup
-      login(); // Call login to mark user as authenticated
+      login(); 
       navigate('/'); 
     } else {
       alert("Please fill in all fields.");
