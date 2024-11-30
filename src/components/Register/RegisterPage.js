@@ -7,20 +7,34 @@ const RegisterPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  
+
   const navigate = useNavigate();
 
   const handleRegister = async () => {
     setLoading(true);
-    
-    // You can add your registration API call here
 
-    // Simulate registration delay
-    setTimeout(() => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ fullName: fullname, email, password }), // Send fullName, email, and password
+      });
+
+      if (response.ok) {
+        // Navigate to onboarding if successful
+        navigate("/onboarding");
+      } else {
+        const data = await response.json();
+        alert(data.error || "Registration failed");
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again.");
+    } finally {
       setLoading(false);
-      // Navigate to onboarding after registration is successful
-      navigate('/onboarding');
-    }, 2000);  // Simulating network delay
+    }
   };
 
   return (

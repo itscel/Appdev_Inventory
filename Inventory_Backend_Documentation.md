@@ -86,3 +86,17 @@ src/
 ## Additional Notes
 - Ensure the `.env` file is not committed to the repository.
 - Use `npm start` if you have added it as a script in `package.json`.
+
+- DATABASE SQL CODE
+- CREATE TABLE IF NOT EXISTS Users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fullName VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+- BACKEND NPM INSTALL CODES
+- npm install express body-parser sequelize sqlite3 bcryptjs jsonwebtoken cors
+npm install --save-dev nodemon

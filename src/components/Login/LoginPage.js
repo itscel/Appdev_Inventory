@@ -8,12 +8,13 @@ const LoginPage = ({ login }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   const handleLogin = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +27,6 @@ const LoginPage = ({ login }) => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         login();
-
         navigate('/');
       } else {
         setError(data.error || 'Login failed');
@@ -87,4 +87,3 @@ const LoginPage = ({ login }) => {
 };
 
 export default LoginPage;
-
