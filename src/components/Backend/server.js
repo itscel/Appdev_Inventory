@@ -1,62 +1,34 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql2');
-const cors = require('cors'); 
-const jwt = require('jsonwebtoken');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-
+// Middleware
+app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "PUT", "DELETE"] }));
 app.use(bodyParser.json());
 
-app.use(cors());
+// Routes
+app.use("/api/auth", authRoutes);
 
-const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'inventory_db',
+app.get("/", (req, res) => {
+  res.send("Server is running.");
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Error connecting to the database:', err.stack);
-    return;
-  }
-  console.log('Connected to the database!');
-});
+// MongoDB Atlas connection
+const mongoURI = "mongodb+srv://cerilheyrosa:lcm123MONGODB.@cluster0.w8f6c.mongodb.net/"; // Replace with your Atlas URI
 
-app.post('/login', (req, res) => {
-  const { email, password } = req.body;
-  console.log('Login attempt with email:', email);
-
-  db.query('SELECT * FROM users WHERE email = ?', [email], (err, results) => {
-    if (err) {
-      console.error('Error querying database:', err.stack);
-      return res.status(500).json({ error: 'Database error' });
-    }
-
-    if (results.length === 0) {
-      return res.status(401).json({ error: 'Invalid credentials' });
-    }
-
-    const user = results[0];
-    if (user.password === password) {
-      const token = jwt.sign({ id: user.id, email: user.email }, 'your_jwt_secret', { expiresIn: '1h' });
-
-      res.json({
-        message: 'Login successful!',
-        token: token,
-      });
-
-      console.log('Token:', token);
-    } else {
-      res.status(401).json({ error: 'Invalid credentials' });
-    }
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log("Connected to MongoDB Atlas!");
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error("Database connection failed:", err);
   });
-});
-
-// Start the server
-app.listen(5000, () => {
-  console.log('Server running on http://localhost:5000');
-});
