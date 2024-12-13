@@ -1,12 +1,40 @@
 .supplier-container {
-    display: flex;
+    margin-left: 2in;
     min-height: 100vh;
+    overflow: auto;
+    width: calc(100vw - 2in)
 }
 
-
-.supplier-content {
-    margin: 10px;
+.supplier-stock {
+    margin: 20px;
     flex: 1;
     padding: 20px;
     overflow: auto;
+    width: auto;
+}
+
+.supplier-head {
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.supplier-head button {
+    width: 150px;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    margin-right: 10px;
+    border: none;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.supplier-head button:hover {
+    background-color: #45a049;
 }

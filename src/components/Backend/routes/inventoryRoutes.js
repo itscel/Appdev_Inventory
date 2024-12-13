@@ -51,7 +51,7 @@ router.post('/add', async (req, res) => {
 });
 
 // Get all items route
-router.get('/items', authenticateToken, async (req, res) => {
+router.get('/items', async (req, res) => {
   try {
     const userId = req.query.userId; // Retrieve userId from the query parameter
     if (!userId) {
