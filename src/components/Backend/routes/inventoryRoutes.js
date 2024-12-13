@@ -1,47 +1,73 @@
-const express = require('express');
-const InventoryItem = require('../models/InventoryItem');
+const express = require("express");
+const mongoose = require('mongoose');
+const User = require("../models/User");
+const Supplier = require("../models/Supplier");
+const Item = require("../models/Item"); // Assuming the Supplier model exists
 const router = express.Router();
 
-// Add new item
-router.post("/add", async (req, res) => {
-  const { name, description, stock_level, price, supplier_id } = req.body;
+// Add new item route
+router.post('/add', async (req, res) => {
   try {
-    const item = await InventoryItem.create({ name, description, stock_level, price, supplier_id });
-    res.status(201).json(item);
-  } catch (error) {
-    res.status(400).json({ error: "Failed to add inventory item" });
-  }
-});
+    console.log('Raw Request Body:', req.body); // Log raw body for debugging
+    const { name, price, sizes, category, subCategory, supplierId, userId } = req.body;
 
-// Update inventory item
-router.put("/update/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, description, stock_level, price, supplier_id } = req.body;
-  try {
-    const item = await InventoryItem.update({ name, description, stock_level, price, supplier_id }, { where: { id } });
-    if (!item) {
-      return res.status(404).json({ error: "Item not found" });
+    console.log('Destructured Data:', { name, price, sizes, category, subCategory, supplierId, userId });
+
+    // Proceed with the existing logic
+    if (!name || !price || !sizes || !category || !subCategory || !supplierId || !userId) {
+      return res.status(400).json({ error: 'All fields are required' });
     }
-    res.json({ message: "Inventory item updated" });
+
+    const user = await User.findById(userId);
+    if (!userId) {
+      return res.status(400).json({ error: 'user not found' });
+    }
+
+    const supplier = await Supplier.findById(supplierId);
+    if (!supplier) {
+      return res.status(400).json({ error: 'Supplier not found' });
+    }
+
+    const newItem = new Item({
+      name,
+      price,
+      sizes,
+      category,
+      subCategory,
+      supplier: supplierId,
+      user: userId, // Ensure userId is passed in the item
+    });
+
+    await newItem.save();
+
+    res.status(201).json({
+      message: 'Item added successfully',
+      item: newItem,
+    });
   } catch (error) {
-    res.status(400).json({ error: "Update failed" });
+    console.error('Error in adding item:', error);
+    res.status(500).json({ error: 'Failed to add item', details: error.message });
   }
 });
 
-// Delete item
-router.delete("/delete/:id", async (req, res) => {
-  const { id } = req.params;
+// Get all items route
+router.get('/items', authenticateToken, async (req, res) => {
   try {
-    await InventoryItem.destroy({ where: { id } });
-    res.json({ message: "Inventory item deleted" });
+    const userId = req.query.userId; // Retrieve userId from the query parameter
+    if (!userId) {
+      return res.status(400).json({ error: 'User ID is required' });
+    }
+
+    const items = await Item.find({ userId }); // Fetch items with matching userId
+    res.status(200).json({
+      message: 'Items retrieved successfully',
+      items,
+    });
   } catch (error) {
-    res.status(400).json({ error: "Deletion failed" });
+    console.error('Error fetching items:', error);
+    res.status(500).json({ error: 'Failed to fetch items' });
   }
 });
 
-router.get("/report/inventory", async (req, res) => {
-    const inventory = await InventoryItem.findAll();
-    res.json(inventory);
-  });
-  
+
 module.exports = router;

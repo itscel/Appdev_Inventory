@@ -1,17 +1,20 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const inventoryRoutes = require("./routes/inventoryRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
 
 const app = express();
 
 // Middleware
 app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "PUT", "DELETE"] }));
-app.use(bodyParser.json());
+app.use(express.json()); // This is crucial for parsing the request body
 
 // Routes
 app.use("/api/auth", authRoutes);
+app.use("/api/inv", inventoryRoutes);
+app.use("/api/sup", supplierRoutes);
 
 app.get("/", (req, res) => {
   res.send("Server is running.");
