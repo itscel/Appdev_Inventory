@@ -22,13 +22,15 @@ const LoginPage = ({ login }) => {
       });
 
       const data = await response.json();
+      console.log(data); // Log the response for debugging
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userID', data.user.id);  // Correct key to access userID
         login();
-
         navigate('/');
-      } else {
+      }
+      else {
         setError(data.error || 'Login failed');
       }
     } catch (err) {
@@ -38,6 +40,7 @@ const LoginPage = ({ login }) => {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="login-container">

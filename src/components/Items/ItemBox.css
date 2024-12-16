@@ -1,0 +1,40 @@
+/* ItemBox.css */
+
+.item-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    /* Space between each item */
+    justify-content:first baseline;
+    padding: 20px;
+}
+
+.item-card {
+    border: 1px solid #ddd;
+    /* Border to define the box */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 15px;
+    width: 200px;
+    /* Set a fixed width for each item box */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Optional: Add a slight shadow */
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    /* Optional: Add animation on hover */
+}
+
+.item-card:hover {
+    transform: scale(1.05);
+    /* Optional: Slight zoom effect on hover */
+}
+
+.item-card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.item-card p {
+    font-size: 14px;
+    color: #333;
+}

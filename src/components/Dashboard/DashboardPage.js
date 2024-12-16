@@ -7,11 +7,14 @@ const DashboardPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
+
         if (!token) {
             navigate('/login');
         }
     }, [navigate]);
+
+    console.log(localStorage.getItem('userID')); // Corrected key for userID
 
     return (
         <div className="dashboard-container">

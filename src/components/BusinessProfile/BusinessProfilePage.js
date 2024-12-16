@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import './BusinessProfilePage.css';
 
 const BusinessProfilePage = ({ login }) => {
@@ -10,8 +10,8 @@ const BusinessProfilePage = ({ login }) => {
 
   const handleSubmit = () => {
     if (companyName && companyIndustry && trackingItem) {
-      login(); 
-      navigate('/'); 
+      login();
+      navigate('/');
     } else {
       alert("Please fill in all fields.");
     }

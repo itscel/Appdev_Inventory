@@ -1,5 +1,6 @@
 .sidebar {
     width: 2in;
+    top: 0;
     background-color: #6E3482;
     height: 100vh;
     position: fixed;
@@ -26,7 +27,6 @@
     width: 80%;
     height: auto;
     max-width: 100%;
-    margin-bottom: 20px;
 }
 
 .sidebar-button {
