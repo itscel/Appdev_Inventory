@@ -36,7 +36,6 @@ const ItemPage = () => {
                 <div className="item-stock">
                     <ItemBox />
                 </div>
-                {/* Pass the state for visibility and onClose handler for both ItemAdd and ItemFolder */}
                 <ItemAdd isVisible={isPopUpVisible} onClose={() => setIsPopUpVisible(false)} />
                 <ItemFolder isVisible={isFolderPopUpVisible} onClose={() => setIsFolderPopUpVisible(false)} /> {/* Add ItemFolder */}
             </div>

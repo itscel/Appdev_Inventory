@@ -27,6 +27,14 @@ const SidebarPage = () => {
         }
     };
 
+    const handleLogout = () => {
+        // Clear localStorage to log the user out
+        localStorage.clear();
+
+        // Optionally, navigate to the login page or homepage
+        navigate('/login'); // Adjust the route to your login page
+    };
+
     const renderContent = () => {
         switch (activePage) {
             case 'supplier':
@@ -86,6 +94,7 @@ const SidebarPage = () => {
                     />
                     <span className="button-text">Supplier</span>
                 </button>
+                <button onClick={handleLogout}>Logout</button>
             </div>
             <div className={`slide-page ${showPage ? 'show' : ''}`}>
                 {renderContent()}

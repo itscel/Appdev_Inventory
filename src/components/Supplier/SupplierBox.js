@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './ItemBox.css'; // Optional: Add styles for the ItemBox component
+import './SupplierBox.css'; // Optional: Add styles for the SupplierBox component
 
-const ItemBox = () => {
-    const [items, setItems] = useState([]);
+const SupplierBox = () => {
+    const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-
     useEffect(() => {
-        const fetchItems = async () => {
+        const fetchSuppliers = async () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
@@ -17,12 +16,13 @@ const ItemBox = () => {
                     return;
                 }
 
-                // Decode the token to extract the userId (if applicable)
+                // Get the userId from localStorage
                 const userId = localStorage.getItem('userID');
 
                 console.log(userId);
 
-                const response = await fetch(`http://localhost:5000/api/inv/items?userId=${userId}`, {
+                // Send request to fetch suppliers by userId
+                const response = await fetch(`http://localhost:5000/api/sup/supplier?userId=${userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -35,20 +35,20 @@ const ItemBox = () => {
                 }
 
                 const data = await response.json();
-                setItems(data.items);
+                setSuppliers(data.suppliers);
             } catch (err) {
-                console.error('Error fetching items:', err);
-                setError('Failed to load items. Please try again later.');
+                console.error('Error fetching suppliers:', err);
+                setError('Failed to load suppliers. Please try again later.');
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchItems();
+        fetchSuppliers();
     }, []);
 
     if (loading) {
-        return <div>Loading items...</div>;
+        return <div>Loading suppliers...</div>;
     }
 
     if (error) {
@@ -56,19 +56,21 @@ const ItemBox = () => {
     }
 
     return (
-        <div className="item-box">
-            {items.length > 0 ? (
-                items.map((item) => (
-                    <div key={item._id} className="item-card">
-                        <h3>{item.name}</h3>
-                        <p>Price: ${item.price}</p>
+        <div className="supplier-box">
+            {suppliers.length > 0 ? (
+                suppliers.map((supplier) => (
+                    <div key={supplier._id} className="supplier-card">
+                        <h3>{supplier.companyName}</h3>
+                        <p>Contact: {supplier.contactInfo}</p>
+                        <p>Email: {supplier.email}</p>
+                        <p>Address: {supplier.address}</p>
                     </div>
                 ))
             ) : (
-                <div>No items found.</div>
+                <div>No suppliers found.</div>
             )}
         </div>
     );
 };
 
-export default ItemBox;
+export default SupplierBox;

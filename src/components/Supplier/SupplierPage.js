@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarPage from '../SideBar/SideBarPage';
 import SupplierAdd from './SupplierAdd'; // Import the SupplierAdd component
+import SupplierBox from './SupplierBox';
 import './SupplierPage.css';
 
 const SupplierPage = () => {
@@ -38,13 +39,12 @@ const SupplierPage = () => {
                         <button onClick={handleAddSupplierClick}>Add Supplier</button>
                     </div>
                 </div>
+                <div className="supplier-stock">
+                    <SupplierBox />
+                </div>
             </div>
 
             <SupplierAdd isVisible={isModalVisible} onClose={handleCloseModal} /> {/* Add the SupplierAdd modal here */}
-
-            <div className="supplier-stock">
-                {/* Add supplier items or list if needed */}
-            </div>
         </div>
     );
 };

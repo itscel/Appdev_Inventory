@@ -11,8 +11,6 @@ router.post('/add', async (req, res) => {
     console.log('Raw Request Body:', req.body); // Log raw body for debugging
     const { name, price, sizes, category, subCategory, supplierId, userId } = req.body;
 
-    console.log('Destructured Data:', { name, price, sizes, category, subCategory, supplierId, userId });
-
     // Proceed with the existing logic
     if (!name || !price || !sizes || !category || !subCategory || !supplierId || !userId) {
       return res.status(400).json({ error: 'All fields are required' });
@@ -40,6 +38,11 @@ router.post('/add', async (req, res) => {
 
     await newItem.save();
 
+    // Destructure the necessary fields, including timestamps
+    const { createdAt, updatedAt } = newItem; // Access createdAt and updatedAt fields
+
+    console.log('Destructured Data:', { name, price, sizes, category, subCategory, supplierId, userId, createdAt, updatedAt });
+
     res.status(201).json({
       message: 'Item added successfully',
       item: newItem,
@@ -50,24 +53,36 @@ router.post('/add', async (req, res) => {
   }
 });
 
-// Get all items route
-router.get('/items', async (req, res) => {
+// Get all items route (all items, no userId filter)
+router.get('/items/all', async (req, res) => {
   try {
-    const userId = req.query.userId; // Retrieve userId from the query parameter
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID is required' });
-    }
-
-    const items = await Item.find({ userId }); // Fetch items with matching userId
-    res.status(200).json({
-      message: 'Items retrieved successfully',
-      items,
-    });
-  } catch (error) {
-    console.error('Error fetching items:', error);
-    res.status(500).json({ error: 'Failed to fetch items' });
+    const items = await Item.find(); // Fetch all items from MongoDB
+    res.json(items); // Send items as response
+  } catch (err) {
+    console.error('Error fetching items:', err);
+    res.status(500).json({ message: 'Error fetching items' });
   }
 });
+// Get items by userId route
+router.get('/items', async (req, res) => {
+  const userId = req.query.userId;  // Extract userId from query parameters
+  if (!userId) {
+    return res.status(400).json({ error: 'User ID is required.' });
+  }
 
+  try {
+    // Convert userId to ObjectId if it's a string
+    const userObjectId = mongoose.Types.ObjectId(userId);
+
+    // Fetch items for the specified userId from the database
+    const items = await Item.find({ user: userObjectId });
+
+    // Return the items in the response
+    res.json({ message: 'Items retrieved successfully', items });
+  } catch (err) {
+    console.error('Error fetching items:', err);
+    res.status(500).json({ error: 'Failed to fetch items.' });
+  }
+});
 
 module.exports = router;
