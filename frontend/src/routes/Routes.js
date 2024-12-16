@@ -7,6 +7,8 @@ import Item from '../pages/Item';
 import Report from '../pages/Report';
 import Supplier from '../pages/Supplier';
 import BusinessProfile from '../pages/BusinessProfile'; // Correct import
+import InventorySummary from '../pages/InventorySummary'; // Add the new import
+import ActivityHistory from '../pages/ActivityHistory'; // Add the new import
 
 const AppRoutes = () => {
   return (
@@ -18,6 +20,8 @@ const AppRoutes = () => {
       <Route path="/item" element={<Item />} />
       <Route path="/report" element={<Report />} />
       <Route path="/supplier" element={<Supplier />} />
+      <Route path="/inventory-summary" element={<InventorySummary />} /> {/* New Route */}
+      <Route path="/activity-history" element={<ActivityHistory />} /> {/* New Route */}
     </Routes>
   );
 };

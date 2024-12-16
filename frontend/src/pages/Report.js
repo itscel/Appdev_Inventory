@@ -13,13 +13,23 @@ const Sidebar = ({ onLogout }) => {
   return (
     <div style={styles.sidebar}>
       <div style={{ textAlign: "center", marginBottom: "20px" }}>
-        <img src="https://via.placeholder.com/60" alt="App Logo" style={{ width: "60px" }} />
+        <img
+          src="https://via.placeholder.com/60"
+          alt="App Logo"
+          style={{ width: "60px" }}
+        />
       </div>
       <ul style={{ listStyle: "none", padding: 0 }}>
         {links.map((link, index) => (
           <li key={index} style={{ marginBottom: "10px", textAlign: "center" }}>
-            <a href={link.path} style={{ color: "#6E3482", textDecoration: "none" }}>
-              <i className={`bi ${link.icon}`} style={{ marginRight: "10px" }}></i>
+            <a
+              href={link.path}
+              style={{ color: "#6E3482", textDecoration: "none" }}
+            >
+              <i
+                className={`bi ${link.icon}`}
+                style={{ marginRight: "10px" }}
+              ></i>
               {link.label}
             </a>
           </li>
@@ -63,7 +73,8 @@ const styles = {
   header: {
     color: "#49225B",
     marginBottom: "30px",
-    fontSize: "2.5em",
+   fontSize: "2.5em",
+   fontWeight: "bold",
   },
   card: {
     backgroundColor: "#fff",
@@ -122,18 +133,26 @@ const Report = () => {
         <h1 style={styles.header}>Reports</h1>
 
         {/* Report Content Section */}
-        <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", marginBottom: "40px" }}>
-          <Card title="Account History" icon="bi-clock">
-            <Link to="/activity-history" style={styles.linkItem}>
+        <div
+          style={{
+            display: "flex",
+            gap: "20px",
+            flexWrap: "wrap",
+            marginBottom: "40px",
+          }}
+        >
+          <Card title="Inventory Summary" icon="bi-box" Link to="/inventory-summary" >
+            <Link to="/inventory-summary" style={styles.linkItem}>
               <div style={styles.description}>
-                Keep tabs on all users' changes to items, folders, tags, & more.
+                Review your inventory’s quantity, value, & location at a glance.
               </div>
             </Link>
           </Card>
-          <Card title="Inventory Summary" icon="bi-box">
+
+          <Card title="Account History" icon="bi-clock" Link to="/activity-history">
             <Link to="/activity-history" style={styles.linkItem}>
               <div style={styles.description}>
-                Review your inventory’s quantity, value, & location at a glance.
+                Keep tabs on all users' changes to items, folders, tags, & more.
               </div>
             </Link>
           </Card>

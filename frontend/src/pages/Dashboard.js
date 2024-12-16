@@ -21,6 +21,7 @@ const styles = {
     color: "#49225B",
     marginBottom: "30px",
     fontSize: "2.5em",
+    fontWeight: "bold", // Added this line to make the header bold
   },
   card: {
     backgroundColor: "#fff",
@@ -77,6 +78,7 @@ const styles = {
     cursor: "pointer",
   },
 };
+
 
 // Reusable Card component
 const Card = ({ title, value }) => (

@@ -23,22 +23,25 @@ const styles = {
     fontSize: "2.5em",
     fontWeight: "bold",
   },
+  tableContainer: {
+    overflowX: "auto",
+    marginTop: "30px",
+  },
   table: {
     width: "100%",
     borderCollapse: "collapse",
-    marginTop: "20px",
-    backgroundColor: "#fff",
-    borderRadius: "8px",
-    boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+  },
+  tableHeaderRow: {
+    backgroundColor: "#49225B",
+    color: "#fff",
   },
   tableHeader: {
-    backgroundColor: "#E7DBEF",
-    color: "#49225B",
     padding: "12px",
-    textAlign: "left",
+    textAlign: "center",
     fontWeight: "bold",
-    fontSize: "1.1em",
-    borderBottom: "2px solid #ddd",
+  },
+  tableBody: {
+    backgroundColor: "#F9F9F9",
   },
   tableCell: {
     border: "1px solid #ddd",
@@ -149,6 +152,7 @@ const Sidebar = ({ onLogout }) => {
 };
 
 // Main Item Component
+// Main Item Component
 const Item = () => {
   const navigate = useNavigate();
   const [items, setItems] = useState([]); // Placeholder for items list
@@ -249,7 +253,6 @@ const Item = () => {
 
         {/* Items Table or Empty State */}
         {sortedItems.length === 0 ? (
-          // Empty state rendering
           <div
             style={{
               display: "flex",
@@ -285,28 +288,30 @@ const Item = () => {
           </div>
         ) : (
           // Table rendering when items are present
-          <table style={styles.table}>
-            <thead>
-              <tr>
-                <th style={styles.tableHeader}>Name</th>
-                <th style={styles.tableHeader}>Quantity</th>
-                <th style={styles.tableHeader}>Unit</th>
-                <th style={styles.tableHeader}>Min. Level</th>
-                <th style={styles.tableHeader}>Price</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedItems.map((item, index) => (
-                <tr key={index}>
-                  <td style={styles.tableCell}>{item.name}</td>
-                  <td style={styles.tableCell}>{item.quantity}</td>
-                  <td style={styles.tableCell}>{item.unit}</td>
-                  <td style={styles.tableCell}>{item.minLevel}</td>
-                  <td style={styles.tableCell}>₱{item.price}</td>
+          <div style={styles.tableContainer}>
+            <table style={styles.table}>
+              <thead>
+                <tr style={styles.tableHeaderRow}>
+                  <th style={styles.tableHeader}>Name</th>
+                  <th style={styles.tableHeader}>Quantity</th>
+                  <th style={styles.tableHeader}>Unit</th>
+                  <th style={styles.tableHeader}>Min. Level</th>
+                  <th style={styles.tableHeader}>Price</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody style={styles.tableBody}>
+                {sortedItems.map((item, index) => (
+                  <tr key={index}>
+                    <td style={styles.tableCell}>{item.name}</td>
+                    <td style={styles.tableCell}>{item.quantity}</td>
+                    <td style={styles.tableCell}>{item.unit}</td>
+                    <td style={styles.tableCell}>{item.minLevel}</td>
+                    <td style={styles.tableCell}>₱{item.price}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
 
@@ -317,6 +322,7 @@ const Item = () => {
     </div>
   );
 };
+
 
 // Add Item Modal Component
 const AddItemModal = ({ onClose, onSubmit }) => {
