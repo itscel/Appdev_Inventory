@@ -1,9 +1,9 @@
-/* ItemPage.css */
-
 /* Container for the entire page */
 .item-container {
     display: flex;
     flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
     padding: 20px;
     margin-left: 200px; /* Adjust according to sidebar width */
 }
@@ -13,11 +13,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: rgb(0, 0, 0);
+    color: #49225B;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+    width: 100%; /* Ensure header takes full width */
+    max-width: 1200px; /* Add max width for better alignment */
 }
 
 /* Heading styling */
@@ -60,7 +62,10 @@
     margin-left: 2in;
     min-height: 100vh;
     overflow: auto;
-    width: calc(100vw - 2in);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Mobile responsiveness for header */
@@ -79,4 +84,46 @@
         width: 100%;
         padding: 10px;
     }
+}
+/* Styling for the Actions column */
+.item-table td.actions-cell {
+    text-align: center; /* Center the content inside the Actions column */
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Add space between buttons */
+}
+
+/* Button styling for actions (update, delete) */
+.item-table button {
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Button hover effect */
+.item-table button:hover {
+    background-color: #49225B;
+}
+
+/* Delete button styling */
+.item-table .delete-button {
+    background-color: #F44336;
+}
+
+/* Delete button hover effect */
+.item-table .delete-button:hover {
+    background-color: #E53935;
+}
+.modal-main-button {
+    margin-top: 20px; /* Adds space above the button */
+    padding: 10px 20px;
+    background-color: #49225b;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* Ensures the button takes full width */
 }

@@ -95,6 +95,75 @@
     }
 }
 
+/* Styling for the Supplier Table */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+    text-align: center; /* Center all table content horizontally */
+}
+
+/* Table header and cell styling */
+.supplier-table th,
+.supplier-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    vertical-align: middle; /* Center content vertically */
+    word-wrap: break-word; /* Prevents overflow of text */
+    text-align: center; /* Center the content inside each cell */
+}
+
+/* Table header styling */
+.supplier-table th {
+    background-color: #49225B;
+    color: white;
+}
+
+/* Even row styling */
+.supplier-table tr:nth-child(even) {
+    background-color: #F5EBFA;
+}
+
+/* Row hover effect */
+.supplier-table tr:hover {
+    background-color: #E7DBEF;
+}
+
+/* Styling for the Actions column */
+.supplier-table td:last-child {
+    text-align: center; /* Center the content inside the Actions column */
+    display: flex;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Add space between buttons */
+}
+
+/* Button styling for actions (update, delete) */
+.supplier-table button {
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+}
+
+/* Button hover effect */
+.supplier-table button:hover {
+    background-color: #49225B;
+}
+
+/* Delete button styling */
+.supplier-table .delete-button {
+    background-color: #F44336;
+}
+
+/* Delete button hover effect */
+.supplier-table .delete-button:hover {
+    background-color: #E53935;
+}
+
 /* For extra small devices (mobile portrait mode) */
 @media (max-width: 480px) {
     .supplier-table td:before {

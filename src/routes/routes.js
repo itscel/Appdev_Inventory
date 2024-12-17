@@ -8,7 +8,6 @@ import ItemPage from '../components/Items/ItemPage';
 import SupplierPage from '../components/Supplier/SupplierPage';
 import ReportPage from '../components/Report/ReportPage';
 
-
 const RoutesComponent = ({ isAuthenticated, login, logout }) => {
   return (
     <Routes>
@@ -47,8 +46,8 @@ const RoutesComponent = ({ isAuthenticated, login, logout }) => {
         path="/report"
         element={<ReportPage login={login} />}
       />
-    </Routes>
-  );
+    </Routes> 
+);
 };
 
 export default RoutesComponent;

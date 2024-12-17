@@ -1,0 +1,56 @@
+/* Ensure the body of the page is scrollable */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Allow vertical scrolling */
+    height: 100%;
+    font-family: 'Arial', sans-serif; /* Set a consistent font */
+    background-color: #F5EBFA; /* Soft background color */
+}
+
+/* Container for StockByCategory page */
+.StockByCategory-box {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: auto;
+    overflow: hidden;
+}
+
+/* Make the chart container smaller and centered */
+.chart-container {
+    width: 60%; /* Adjust to control the width */
+    height: 300px; /* Set a specific height for the chart */
+    margin: 0 auto 40px; /* Center the chart and add spacing below */
+}
+
+/* Styling for the category list */
+.StockByCategory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styling for each category */
+.StockByCategory-category {
+    background-color: #E7DBEF;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for error messages */
+.error-message {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 50px; /* Add margin to separate from other content */
+}
+
+/* Styling for loading text */
+.loading-text {
+    text-align: center;
+    font-size: 18px;
+    color: #6E3482;
+    margin-top: 50px;
+}

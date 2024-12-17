@@ -20,7 +20,7 @@ const Report = () => {
                     return;
                 }
 
-                const response = await fetch(`http://localhost:5000/api/inv/items?userId=${userId}`, {
+                const response = await fetch(`http://localhost:5001/api/inv/items?userId=${userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,

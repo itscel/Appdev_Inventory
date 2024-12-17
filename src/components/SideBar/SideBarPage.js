@@ -37,7 +37,6 @@ const SidebarPage = () => {
                     onClick={() => handleButtonClick('dashboard')}
                 >
                     <i className="bi bi-house-door" /> {/* Dashboard Icon */}
-                    <div className="tooltip">Dashboard</div>
                 </button>
                 <button
                     className="sidebar-button"
@@ -45,7 +44,6 @@ const SidebarPage = () => {
                     onClick={() => handleButtonClick('items')}
                 >
                     <i className="bi bi-box" /> {/* Item Icon */}
-                    <div className="tooltip">Items</div>
                 </button>
                 <button
                     className="sidebar-button"
@@ -53,20 +51,18 @@ const SidebarPage = () => {
                     onClick={() => handleButtonClick('supplier')}
                 >
                     <i className="bi bi-person" /> {/* Supplier Icon */}
-                    <div className="tooltip">Supplier</div>
                 </button>
                 <button
                     className="sidebar-button"
                     onClick={() => handleButtonClick('report')}
                 >
                     <i className="bi bi-file-earmark-bar-graph" /> {/* Report Icon */}
-                    <div className="tooltip">Report</div>
                 </button>
                 <button className="sidebar-button" onClick={handleLogout}>
                     <i className="bi bi-box-arrow-right" /> {/* Logout Icon */}
-                    <div className="tooltip">Logout</div>
                 </button>
             </div>
+            {/* No need for slide-page or renderContent anymore */}
         </div>
     );
 };

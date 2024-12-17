@@ -56,6 +56,37 @@
     font-size: 1rem;
     width: 100%;
 }
+.error {
+    border: 2px solid red; /* Red border for invalid input */
+    background-color: #f8d7da; /* Light red background */
+}
+
+.tooltip {
+    color: white; /* White text color */
+    font-size: 12px;
+    position: absolute;
+    background-color: rgba(255, 0, 0, 0.3); /* Semi-transparent red background */
+    border: 1px solid rgba(255, 0, 0, 0.7); /* Semi-transparent red border */
+    padding: 5px;
+    border-radius: 5px;
+    max-width: 200px;
+    z-index: 1;
+    font-weight: bold; /* Bold text to make the message more noticeable */
+    margin-top: 5px; /* Space between the input and tooltip */
+}
+
+input {
+    position: relative;
+}
+
+.modal-view {
+    position: relative;
+}
+
+.input-container {
+    position: relative; /* Allow absolute positioning of tooltips */
+    margin-bottom: 20px; /* Space between fields */
+}
 
 .add-button:hover,
 .close-button:hover {

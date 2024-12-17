@@ -3,24 +3,20 @@ import './ItemAdd.css';
 
 const ItemAdd = ({ isVisible, onClose }) => {
     const [itemName, setItemName] = useState('');
-    const [itemDetails, setItemDetails] = useState({
-        XS: { quantity: '' },
-        S: { quantity: '' },
-        M: { quantity: '' },
-        L: { quantity: '' },
-        XL: { quantity: '' },
-    });
+    const [size, setSize] = useState(''); // Single size
+    const [quantity, setQuantity] = useState(''); // Single quantity
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const [supplier, setSupplier] = useState('');
     const [availableSuppliers, setAvailableSuppliers] = useState([]);
     const [userId, setUserId] = useState([]);
+    const [isSubmitted, setIsSubmitted] = useState(false); // Track form submission
 
     // Retrieve user ID from localStorage
     useEffect(() => {
         const userID = localStorage.getItem('userID');
-        console.log('Fetched userID:', userID); // Log to ensure userId is fetched correctly
+        console.log('Fetched userID:', userID);
         if (userID) {
             setUserId(userID);
         } else {
@@ -57,6 +53,8 @@ const ItemAdd = ({ isVisible, onClose }) => {
     }, [isVisible]);
 
     const handleAddItem = async () => {
+        setIsSubmitted(true); // Mark form as submitted
+
         if (!userId) {
             alert('User is not logged in');
             return;
@@ -88,39 +86,31 @@ const ItemAdd = ({ isVisible, onClose }) => {
         }
 
         // Ensure quantity is valid (non-negative)
-        const validatedSizes = Object.keys(itemDetails).reduce((acc, size) => {
-            acc[size] = {
-                quantity: itemDetails[size].quantity || 0,
-            };
-            return acc;
-        }, {});
+        const validatedSize = size.trim() && quantity.trim() ? { size, quantity: quantity || 0 } : null;
+
+        if (!validatedSize) {
+            alert('Please provide both size and quantity.');
+            return;
+        }
 
         const newItem = {
             name: itemName,
             price: Number(price),
-            sizes: Object.keys(validatedSizes).map((size) => ({
-                size,
-                quantity: validatedSizes[size].quantity,
-            })),
+            sizes: [validatedSize], // Single size and quantity pair
             category,
             subCategory,
             supplierId: supplier,
-            userId: localStorage.getItem('userID'),// Ensure userId is passed here
+            userId: localStorage.getItem('userID'),
         };
 
         const resetForm = () => {
             setItemName('');
-            setItemDetails({
-                XS: { quantity: 0 },
-                S: { quantity: 0 },
-                M: { quantity: 0 },
-                L: { quantity: 0 },
-                XL: { quantity: 0 },
-            });
+            setSize('');
+            setQuantity('');
             setPrice('');
             setCategory('');
             setSubCategory('');
-            setSupplier('');// Reset userId after form submission
+            setSupplier('');
         };
 
         console.log('Submitting item:', JSON.stringify(newItem));
@@ -155,6 +145,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
     };
 
     const renderSubCategories = () => {
+        // Check the selected category and return corresponding subcategories
         if (category === 'Men') {
             return (
                 <>
@@ -176,17 +167,26 @@ const ItemAdd = ({ isVisible, onClose }) => {
                     <option value="shoes">Shoes</option>
                 </>
             );
+        } else if (category === 'Kids') {
+            return (
+                <>
+                    <option value="t-shirt">T-Shirt</option>
+                    <option value="pants">Pants</option>
+                    <option value="shorts">Shorts</option>
+                    <option value="shoes">Shoes</option>
+                    <option value="sweater">Sweater</option>
+                </>
+            );
         }
+    
+        // Default option if no category is selected
         return <option value="" disabled>Select a sub-category</option>;
     };
+    
 
-    const handleDetailChange = (size, value) => {
-        setItemDetails((prevDetails) => ({
-            ...prevDetails,
-            [size]: {
-                quantity: isNaN(value) || value < 0 ? 0 : parseInt(value, 10),
-            },
-        }));
+    // Function to apply red border if field is empty and the form is submitted
+    const getFieldStyle = (value) => {
+        return isSubmitted && !value.trim() ? { borderColor: 'red' } : {};
     };
 
     if (!isVisible) return null;
@@ -202,39 +202,60 @@ const ItemAdd = ({ isVisible, onClose }) => {
                     placeholder="Enter item name"
                     value={itemName}
                     onChange={(e) => setItemName(e.target.value)}
+                    style={getFieldStyle(itemName)}
                 />
 
                 <label>Price</label>
                 <input
                     type="number"
-                    placeholder="Enter price for all sizes"
+                    placeholder="Enter price for the item"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    style={getFieldStyle(price)}
                 />
 
                 <div className="modal-row">
-                    {Object.keys(itemDetails).map((size) => (
-                        <div key={size}>
-                            <label>{size}</label>
+                    <div className="modal-column size-quantity">
+                        <div>
+                            <label>Size</label>
+                            <select
+                                value={size}
+                                onChange={(e) => setSize(e.target.value)}
+                                style={getFieldStyle(size)}
+                            >
+                                <option value="" disabled>Select size</option>
+                                <option value="XS">XS</option>
+                                <option value="S">S</option>
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Quantity</label>
                             <input
                                 type="number"
-                                placeholder="Quantity"
-                                value={itemDetails[size].quantity}
-                                onChange={(e) =>
-                                    handleDetailChange(size, e.target.value)
-                                }
+                                placeholder="Enter quantity"
+                                value={quantity}
+                                onChange={(e) => setQuantity(e.target.value)}
+                                style={getFieldStyle(quantity)}
                             />
                         </div>
-                    ))}
+                    </div>
                 </div>
 
                 <div className="modal-row">
                     <div>
                         <label>Category</label>
-                        <select value={category} onChange={handleCategoryChange}>
+                        <select
+                            value={category}
+                            onChange={handleCategoryChange}
+                            style={getFieldStyle(category)}
+                        >
                             <option value="" disabled>Select a category</option>
                             <option value="Men">Men</option>
                             <option value="Women">Women</option>
+                            <option value="Kids">Kids</option>
                         </select>
                     </div>
                     <div>
@@ -242,6 +263,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
                         <select
                             value={subCategory}
                             onChange={(e) => setSubCategory(e.target.value)}
+                            style={getFieldStyle(subCategory)}
                         >
                             <option value="" disabled>Select a sub-category</option>
                             {renderSubCategories()}
@@ -252,6 +274,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
                         <select
                             value={supplier}
                             onChange={(e) => setSupplier(e.target.value)}
+                            style={getFieldStyle(supplier)}
                         >
                             <option value="" disabled>Select a supplier</option>
                             {availableSuppliers.length === 0 ? (
@@ -267,15 +290,15 @@ const ItemAdd = ({ isVisible, onClose }) => {
                     </div>
                 </div>
 
-                <div className="modal-buttons">
-                    <button className="btn" onClick={handleAddItem}>
-                        Add Item
-                    </button>
-                    <button className="btn" onClick={onClose}>
-                        Cancel
-                    </button>
+  <div className="modal-buttons">
+            <button className="btn" onClick={handleAddItem}>
+                Add Item
+            </button>
+            <button className="btn" onClick={onClose}>
+                Cancel
+            </button>
+        </div>
                 </div>
-            </div>
         </div>
     );
 };

@@ -1,0 +1,23 @@
+/* src/Report/RecentActivities.css */
+.dashboard-activities {
+    margin-bottom: 30px;
+}
+
+.dashboard-activities h2 {
+    color: #6E3482;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.dashboard-activities ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-activities li {
+    background-color: #E7DBEF;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 1rem;
+}

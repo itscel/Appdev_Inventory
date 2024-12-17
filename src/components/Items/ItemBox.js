@@ -95,33 +95,36 @@ const ItemBox = () => {
                     <tr>
                         <th>Item Name</th>
                         <th>Price</th>
+                        <th>Category</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {items.map((item) => (
-                        <tr key={item._id}>
-                            <td data-label="Item Name">{item.name}</td>
-                            <td data-label="Price">${item.price}</td>
-                            <td data-label="Actions">
-                                <button
-                                    onClick={() => {
-                                        setCurrentItem(item);
-                                        setModalVisible(true);
-                                    }}
-                                    className="btn btn-primary"
-                                >
-                                    <i className="bi bi-pencil-square"></i>
-                                </button>
-                                <button
-                                    onClick={() => handleDelete(item._id)}
-                                    className="btn btn-danger delete-button"
-                                >
-                                    <i className="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
+                {items.map((item) => (
+    <tr key={item._id}>
+        <td data-label="Item Name">{item.name}</td>
+        <td data-label="Price">${item.price}</td>
+        <td data-label="Category">{item.category || 'N/A'}</td>
+        <td data-label="Actions" className="actions-cell">
+            <button
+                onClick={() => {
+                    setCurrentItem(item);
+                    setModalVisible(true);
+                }}
+                className="btn btn-primary"
+            >
+                <i className="bi bi-pencil-square"> </i>
+            </button>
+            <button
+                onClick={() => handleDelete(item._id)}
+                className="btn btn-danger delete-button"
+            >
+                <i className="bi bi-trash"></i>
+            </button>
+        </td>
+    </tr>
+))}
+
                 </tbody>
             </table>
 

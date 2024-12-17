@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './LowStock.css';
+import { Bar } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import './LowStockBySize.css';
+
+// Register Chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const LowStock = () => {
     const [items, setItems] = useState([]);
@@ -12,9 +17,6 @@ const LowStock = () => {
             try {
                 const token = localStorage.getItem('token');
                 const userId = localStorage.getItem('userID');
-
-                console.log('Token:', token);
-                console.log('User ID:', userId);
 
                 if (!token || !userId) {
                     setError('User not authenticated.');
@@ -37,7 +39,7 @@ const LowStock = () => {
                 const data = await response.json();
                 setItems(data.items);
 
-                // Calculate low stock
+                // Calculate low stock by size
                 const lowStockData = {
                     XS: [],
                     S: [],
@@ -74,6 +76,49 @@ const LowStock = () => {
         fetchItems();
     }, []);
 
+    // Prepare data for the chart
+    const chartData = {
+        labels: ['XS', 'S', 'M', 'L', 'XL'],
+        datasets: [
+            {
+                label: 'Low Stock Quantities',
+                data: [
+                    lowStock.XS?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+                    lowStock.S?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+                    lowStock.M?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+                    lowStock.L?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+                    lowStock.XL?.reduce((acc, item) => acc + item.quantity, 0) || 0,
+                ],
+                backgroundColor: '#6E3482',
+                borderColor: '#49225B',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const chartOptions = {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Low Stock Quantities by Size',
+                font: {
+                    size: 18,
+                    family: 'Arial, sans-serif',
+                },
+            },
+            tooltip: {
+                callbacks: {
+                    label: (tooltipItem) => {
+                        const size = tooltipItem.label;
+                        const quantity = tooltipItem.raw;
+                        return `${size}: ${quantity} pcs`;
+                    },
+                },
+            },
+        },
+    };
+
     if (loading) {
         return <div>Loading items...</div>;
     }
@@ -84,22 +129,10 @@ const LowStock = () => {
 
     return (
         <div className="lowstock-box">
-            {Object.entries(lowStock).map(([size, items]) => (
-                <div key={size} className="lowstock-card">
-                    <h3>Low Stock: {size}</h3>
-                    {items.length > 0 ? (
-                        <ul>
-                            {items.map((item, index) => (
-                                <li key={index}>
-                                    <strong>{item.name}</strong> → {item.quantity} pcs.
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>No items with low stock in this size.</p>
-                    )}
-                </div>
-            ))}
+     <div className="lowstock-chart-container">
+    <Bar data={chartData} options={chartOptions} />
+</div>
+
         </div>
     );
 };
