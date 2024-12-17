@@ -1,56 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 import './SideBarPage.css';
 
 const SidebarPage = () => {
-    const [showPage, setShowPage] = useState(false);
-    const [activePage, setActivePage] = useState('');
     const navigate = useNavigate();
 
     const handleButtonClick = (page) => {
         if (page === 'dashboard') {
             navigate('/');
-            setShowPage(false);
         } else if (page === 'items') {
             navigate('/items');
-            setShowPage(false);
         } else if (page === 'supplier') {
-            if (activePage === 'supplier' && showPage) {
-                setShowPage(false);
-            } else {
-                setActivePage('supplier');
-                setShowPage(true);
-            }
+            navigate('/supplier');
         } else if (page === 'report') {
             navigate('/report');
-            setShowPage(false);
-        } else {
-            setActivePage(page);
-            setShowPage(!showPage);
         }
     };
 
     const handleLogout = () => {
-        // Clear localStorage to log the user out
         localStorage.clear();
-
-        // Optionally, navigate to the login page or homepage
-        navigate('/login'); // Adjust the route to your login page
-    };
-
-    const renderContent = () => {
-        switch (activePage) {
-            case 'supplier':
-                return (
-                    <div>
-                        <button onClick={() => navigate('/supplier')}>
-                            All Supplier
-                        </button>
-                    </div>
-                );
-            default:
-                return <h1>Select an Option</h1>;
-        }
+        navigate('/login');
     };
 
     return (
@@ -66,47 +36,36 @@ const SidebarPage = () => {
                     title="Dashboard"
                     onClick={() => handleButtonClick('dashboard')}
                 >
-                    <img
-                        src={require('../../Images/dashboard.png')}
-                        alt="Dashboard Icon"
-                        className="button-image"
-                    />
-                    <span className="button-text">Dashboard</span>
+                    <i className="bi bi-house-door" /> {/* Dashboard Icon */}
+                    <div className="tooltip">Dashboard</div>
                 </button>
                 <button
                     className="sidebar-button"
                     title="Items"
                     onClick={() => handleButtonClick('items')}
                 >
-                    <img
-                        src={require('../../Images/item.png')}
-                        alt="Item Icon"
-                        className="button-image"
-                    />
-                    <span className="button-text">Items</span>
+                    <i className="bi bi-box" /> {/* Item Icon */}
+                    <div className="tooltip">Items</div>
                 </button>
                 <button
                     className="sidebar-button"
                     title="Supplier"
                     onClick={() => handleButtonClick('supplier')}
                 >
-                    <img
-                        src={require('../../Images/supplier.png')}
-                        alt="Supplier Icon"
-                        className="button-image"
-                    />
-                    <span className="button-text">Supplier</span>
+                    <i className="bi bi-person" /> {/* Supplier Icon */}
+                    <div className="tooltip">Supplier</div>
                 </button>
                 <button
                     className="sidebar-button"
                     onClick={() => handleButtonClick('report')}
                 >
-                    <span className="button-text">Report</span>
+                    <i className="bi bi-file-earmark-bar-graph" /> {/* Report Icon */}
+                    <div className="tooltip">Report</div>
                 </button>
-                <button onClick={handleLogout}>Logout</button>
-            </div>
-            <div className={`slide-page ${showPage ? 'show' : ''}`}>
-                {renderContent()}
+                <button className="sidebar-button" onClick={handleLogout}>
+                    <i className="bi bi-box-arrow-right" /> {/* Logout Icon */}
+                    <div className="tooltip">Logout</div>
+                </button>
             </div>
         </div>
     );
