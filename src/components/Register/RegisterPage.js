@@ -1,90 +1,92 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './RegisterPage.css';
 
-const Report = () => {
-    const [items, setItems] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+const RegisterPage = () => {
+    const [fullname, setFullname] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const fetchItems = async () => {
-            try {
-                const token = localStorage.getItem('token');
-                const userId = localStorage.getItem('userID');
+    const navigate = useNavigate();
 
-                console.log('Token:', token);
-                console.log('User ID:', userId);
+    const handleRegister = async () => {
+        setLoading(true);
 
-                if (!token || !userId) {
-                    setError('User not authenticated.');
-                    setLoading(false);
-                    return;
-                }
+        try {
+            const response = await fetch("http://localhost:5000/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ fullName: fullname, email, password }), // Send fullName, email, and password
+            });
 
-                const response = await fetch(`http://localhost:5000/api/inv/items?userId=${userId}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
+            if (response.ok) {
+                // Navigate to onboarding if successful
+                navigate("/onboarding");
+            } else {
                 const data = await response.json();
-                console.log('Fetched Items:', data.items);
-                setItems(data.items);
-            } catch (err) {
-                console.error('Error fetching items:', err);
-                setError('Failed to load items. Please try again later.');
-            } finally {
-                setLoading(false);
+                alert(data.error || "Registration failed");
             }
-        };
-
-        fetchItems();
-    }, []);
-
-    if (loading) {
-        return <div>Loading items...</div>;
-    }
-
-    if (error) {
-        return <div className="error-message">{error}</div>;
-    }
+        } catch (error) {
+            console.error("Error during registration:", error);
+            alert("An error occurred. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
-        <div className="report-container">
-            <h2>Item Report</h2>
-            {items.length > 0 ? (
-                <div className="report-list">
-                    {items.map((item) => (
+        <div className="register-container">
+            <div className="main-heading">Never Run Out of Stock Again</div>
+            <div className="sub-heading">
+                Effortless inventory management for small businesses.
+            </div>
 
+            <div className="form">
+                <input
+                    className="input"
+                    type="text"
+                    placeholder="Full Name"
+                    value={fullname}
+                    onChange={(e) => setFullname(e.target.value)}
+                    required
+                />
+                <input
+                    className="input"
+                    type="email"
+                    placeholder="Work Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                />
+                <input
+                    className="input"
+                    type="password"
+                    placeholder="Create Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                />
 
-                        <div key={item._id} className="report-item">
-                            <h3>{item.name}</h3>
-                            <p><strong>Price:</strong> ${item.price}</p>
-                            <p><strong>Sizes:</strong></p>
-                            <ul>
-                                {item.sizes.map((size) => (
-                                    <li key={size._id}>
-                                        <strong>{size.size}:</strong> {size.quantity} pcs.
-                                    </li>
-                                ))}
-                            </ul>
-                            <p><strong>Category:</strong> {item.category}</p>
-                            <p><strong>Subcategory:</strong> {item.subCategory}</p>
-                        </div>
+                <button
+                    className="submit-button"
+                    onClick={handleRegister}
+                    disabled={loading || !fullname || !email || !password}
+                >
+                    {loading ? 'Creating account...' : 'Create Account'}
+                </button>
+            </div>
 
-                        
-                    ))}
-                </div>
-            ) : (
-                <div>No items found.</div>
-            )}
+            <div className="login-link">
+                <span>
+                    Already have an account?{' '}
+                    <a href="/login">Log in</a>
+                </span>
+            </div>
         </div>
     );
 };
 
-export default Report;
+export default RegisterPage;
