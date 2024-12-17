@@ -1,21 +1,25 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  fullName: {
-    type: String,
-    required: true,  // Full name is required
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,  // Enforcing unique email addresses
-  },
-  password: {
-    type: String,
-    required: true,  // Password is required
-  },
+    fullName: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    // added a reference to the business profile if needed
+    businessProfile: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'BusinessProfile',
+    },
 });
 
-const User = mongoose.model('User', userSchema);
-
+const User = mongoose.model('User ', userSchema);
 module.exports = User;
