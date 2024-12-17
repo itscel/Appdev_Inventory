@@ -28,15 +28,16 @@ const ItemAdd = ({ isVisible, onClose }) => {
     useEffect(() => {
         const fetchSuppliers = async () => {
             try {
-                const response = await fetch('http://localhost:5001/api/sup/sup');
+                const response = await fetch(`http://localhost:5001/api/sup/supplier?userId=${userId}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch suppliers');
                 }
                 const data = await response.json();
                 console.log('Fetched suppliers:', data);
 
-                if (Array.isArray(data) && data.length > 0) {
-                    setAvailableSuppliers(data);
+                // Make sure the response contains the suppliers array
+                if (data.suppliers && Array.isArray(data.suppliers)) {
+                    setAvailableSuppliers(data.suppliers);
                 } else {
                     console.log('No suppliers found or incorrect data structure');
                     setAvailableSuppliers([]);
@@ -50,7 +51,8 @@ const ItemAdd = ({ isVisible, onClose }) => {
         if (isVisible) {
             fetchSuppliers();
         }
-    }, [isVisible]);
+    }, [isVisible, userId]);
+
 
     const handleAddItem = async () => {
         setIsSubmitted(true); // Mark form as submitted
@@ -178,11 +180,11 @@ const ItemAdd = ({ isVisible, onClose }) => {
                 </>
             );
         }
-    
+
         // Default option if no category is selected
         return <option value="" disabled>Select a sub-category</option>;
     };
-    
+
 
     // Function to apply red border if field is empty and the form is submitted
     const getFieldStyle = (value) => {
@@ -287,18 +289,19 @@ const ItemAdd = ({ isVisible, onClose }) => {
                                 ))
                             )}
                         </select>
+
                     </div>
                 </div>
 
-  <div className="modal-buttons">
-            <button className="btn" onClick={handleAddItem}>
-                Add Item
-            </button>
-            <button className="btn" onClick={onClose}>
-                Cancel
-            </button>
-        </div>
+                <div className="modal-buttons">
+                    <button className="btn" onClick={handleAddItem}>
+                        Add Item
+                    </button>
+                    <button className="btn" onClick={onClose}>
+                        Cancel
+                    </button>
                 </div>
+            </div>
         </div>
     );
 };
