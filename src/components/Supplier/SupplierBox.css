@@ -4,14 +4,15 @@
     border-collapse: collapse;
     margin-top: 20px;
     table-layout: fixed;
-    text-align: center; /* Center all table content */
+    text-align: center; /* Center all table content horizontally */
 }
 
 .supplier-table th,
 .supplier-table td {
     padding: 12px;
     border: 1px solid #ddd;
-    text-align: center; /* Ensures content is centered */
+    text-align: center; /* Center all content horizontally */
+    vertical-align: middle; /* Center content vertically */
     word-wrap: break-word; /* Prevents overflow of text */
 }
 
@@ -42,12 +43,13 @@
     background-color: #49225B;
 }
 
+/* Red delete button */
 .supplier-table .delete-button {
-    background-color: #F44336;
+    background-color: #F44336; /* Red background */
 }
 
 .supplier-table .delete-button:hover {
-    background-color: #E53935;
+    background-color: #E53935; /* Darker red when hovering */
 }
 
 /* Mobile responsiveness */
@@ -63,7 +65,8 @@
     .supplier-table td {
         display: block;
         width: 100%;
-        text-align: right;
+        text-align: center;
+        vertical-align: middle; /* Ensure vertical centering in mobile view */
     }
 
     .supplier-table th {

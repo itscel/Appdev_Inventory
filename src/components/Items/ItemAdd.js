@@ -32,7 +32,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
     useEffect(() => {
         const fetchSuppliers = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/sup/sup');
+                const response = await fetch('http://localhost:5001/api/sup/sup');
                 if (!response.ok) {
                     throw new Error('Failed to fetch suppliers');
                 }
@@ -126,7 +126,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
         console.log('Submitting item:', JSON.stringify(newItem));
 
         try {
-            const response = await fetch('http://localhost:5000/api/inv/add', {
+            const response = await fetch('http://localhost:5001/api/inv/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newItem),

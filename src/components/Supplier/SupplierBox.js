@@ -115,7 +115,7 @@ const SupplierBox = () => {
                                 </button>
                                 <button
                                     onClick={() => handleDelete(supplier._id)}
-                                    className="btn btn-danger"
+                                    className="btn delete-button"
                                 >
                                     <i className="bi bi-trash"></i> 
                                 </button>

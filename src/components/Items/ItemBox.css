@@ -1,40 +1,117 @@
 /* ItemBox.css */
 
-.item-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    /* Space between each item */
-    justify-content:first baseline;
-    padding: 20px;
+/* Table styling for items */
+.item-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+    text-align: center; /* Center all table content horizontally */
 }
 
-.item-card {
+/* Table header and cell styling */
+.item-table th,
+.item-table td {
+    padding: 12px;
     border: 1px solid #ddd;
-    /* Border to define the box */
-    border-radius: 8px;
-    /* Rounded corners */
-    padding: 15px;
-    width: 200px;
-    /* Set a fixed width for each item box */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Optional: Add a slight shadow */
-    background-color: #fff;
-    transition: transform 0.3s ease;
-    /* Optional: Add animation on hover */
+    text-align: center; /* Center all content horizontally */
+    vertical-align: middle; /* Center content vertically */
+    word-wrap: break-word; /* Prevents overflow of text */
 }
 
-.item-card:hover {
-    transform: scale(1.05);
-    /* Optional: Slight zoom effect on hover */
+/* Table header styling */
+.item-table th {
+    background-color: #49225B;
+    color: white;
 }
 
-.item-card h3 {
-    margin: 0;
-    font-size: 18px;
+/* Even row styling */
+.item-table tr:nth-child(even) {
+    background-color: #F5EBFA;
 }
 
-.item-card p {
-    font-size: 14px;
-    color: #333;
+/* Row hover effect */
+.item-table tr:hover {
+    background-color: #E7DBEF;
+}
+
+/* Button styling for actions (update, delete) */
+.item-table button {
+    padding: 6px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+/* Button hover effect */
+.item-table button:hover {
+    background-color: #49225B;
+}
+
+/* Delete button styling */
+.item-table .delete-button {
+    background-color: #F44336;
+}
+
+/* Delete button hover effect */
+.item-table .delete-button:hover {
+    background-color: #E53935;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .item-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling */
+    }
+
+    .item-table th,
+    .item-table td {
+        display: block;
+        width: 100%;
+        text-align: center;
+        vertical-align: middle; /* Ensure vertical centering in mobile view */
+    }
+
+    .item-table th {
+        background-color: #49225B;
+        color: white;
+        text-align: center;
+    }
+
+    .item-table td {
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .item-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 120px;
+        text-transform: capitalize;
+        padding-right: 10px;
+    }
+
+    .item-table button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+/* For extra small devices (mobile portrait mode) */
+@media (max-width: 480px) {
+    .item-table td:before {
+        font-size: 12px;
+        width: 100px; /* Adjust label width for smaller screens */
+    }
+
+    .item-table td {
+        font-size: 14px; /* Smaller font for mobile */
+    }
 }

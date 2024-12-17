@@ -1,10 +1,52 @@
+/* ItemPage.css */
+
+/* Container for the entire page */
 .item-container {
-    margin-left: 2in;
-    min-height: 100vh;
-    overflow: auto;
-    width: calc(100vw - 2in)
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    margin-left: 200px; /* Adjust according to sidebar width */
 }
 
+/* Header section styling */
+.item-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Heading styling */
+.item-head h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: capitalize;
+}
+
+/* Button Styling */
+.item-head button {
+    background-color: #6E3482; /* Purple button color */
+    color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Button Hover Effect */
+.item-head button:hover {
+    background-color: #49225B; /* Darker purple on hover */
+}
+
+/* Stock container */
 .item-stock {
     margin: 20px;
     flex: 1;
@@ -13,28 +55,28 @@
     width: auto;
 }
 
-.item-head {
-    margin: 20px;
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Item page specific styles */
+.item-container {
+    margin-left: 2in;
+    min-height: 100vh;
+    overflow: auto;
+    width: calc(100vw - 2in);
 }
 
+/* Mobile responsiveness for header */
+@media (max-width: 768px) {
+    .item-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 
-.item-head button {
-    width: 150px;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    margin-right: 10px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
+    .item-head h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
 
-.item-head button:hover {
-    background-color: #45a049;
+    .item-head button {
+        width: 100%;
+        padding: 10px;
+    }
 }
