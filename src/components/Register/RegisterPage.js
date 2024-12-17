@@ -3,35 +3,47 @@ import { useNavigate } from 'react-router-dom';
 import './RegisterPage.css';
 
 const RegisterPage = () => {
-    const [fullname, setFullname] = useState('');
+    const [fullName, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [companyName, setCompanyName] = useState('');
+    const [address, setAddress] = useState('');
+    const [contactNumber, setContactNumber] = useState('');
     const [loading, setLoading] = useState(false);
-
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const handleRegister = async () => {
         setLoading(true);
+        setError(null);
 
         try {
             const response = await fetch("http://localhost:5000/api/auth/register", {
-                method: "POST",
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ fullName: fullname, email, password }), // Send fullName, email, and password
+                body: JSON.stringify({ 
+                    fullName, 
+                    email, 
+                    password, 
+                    companyName, 
+                    address, 
+                    contactNumber 
+                }),
             });
 
-            if (response.ok) {
-                // Navigate to onboarding if successful
-                navigate("/onboarding");
-            } else {
-                const data = await response.json();
-                alert(data.error || "Registration failed");
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Registration failed');
             }
+
+            const data = await response.json();
+            console.log('Registration successful:', data);
+            navigate('/'); 
         } catch (error) {
-            console.error("Error during registration:", error);
-            alert("An error occurred. Please try again.");
+            console.error('Error during registration:', error);
+            setError(error.message);
         } finally {
             setLoading(false);
         }
@@ -43,18 +55,16 @@ const RegisterPage = () => {
             <div className="sub-heading">
                 Effortless inventory management for small businesses.
             </div>
-
+            {error && <p className="error">{error}</p>}
             <div className="form">
                 <input
-                    className="input"
                     type="text"
                     placeholder="Full Name"
-                    value={fullname}
-                    onChange={(e) => setFullname(e.target.value)}
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                     required
                 />
                 <input
-                    className="input"
                     type="email"
                     placeholder="Work Email"
                     value={email}
@@ -62,23 +72,40 @@ const RegisterPage = () => {
                     required
                 />
                 <input
-                    className="input"
                     type="password"
                     placeholder="Create Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
-
-                <button
-                    className="submit-button"
-                    onClick={handleRegister}
-                    disabled={loading || !fullname || !email || !password}
+                <input
+                    type="text"
+                    placeholder="Company Name"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Address"
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Contact Number"
+                    value={contactNumber}
+                    onChange={(e) => setContactNumber(e.target.value)}
+                    required
+                />
+                <button 
+                    onClick={handleRegister} 
+                    disabled={loading || !fullName || !email || !password || !companyName || !address || !contactNumber}
                 >
                     {loading ? 'Creating account...' : 'Create Account'}
                 </button>
             </div>
-
             <div className="login-link">
                 <span>
                     Already have an account?{' '}
