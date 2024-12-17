@@ -84,5 +84,64 @@ router.get('/items', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch items.' });
   }
 });
+// Update item by ID
+router.put("/update/:id", async (req, res) => {
+  const { id } = req.params; // Extract item ID from the URL
+  const { name, price, sizes } = req.body; // Extract fields from request body
+
+  try {
+      // Check if the provided item ID is valid
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+          return res.status(400).json({ error: "Invalid item ID" });
+      }
+
+      // Find and update the item
+      const updatedItem = await Item.findByIdAndUpdate(
+          id,
+          { name, price, sizes },
+          { new: true, runValidators: true } // Return the updated document
+      );
+
+      if (!updatedItem) {
+          return res.status(404).json({ error: "Item not found" });
+      }
+
+      res.json({
+          message: "Item updated successfully",
+          item: updatedItem,
+      });
+  } catch (error) {
+      console.error("Error updating item:", error);
+      res.status(500).json({ error: "Failed to update item" });
+  }
+});
+
+// Delete item by ID
+// Delete item by ID
+router.delete("/delete/:id", async (req, res) => {
+  try {
+      const { id } = req.params; // Extract item ID from the URL
+
+      // Check if the provided item ID is valid
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+          return res.status(400).json({ error: "Invalid item ID" });
+      }
+
+      // Find and delete the item
+      const deletedItem = await Item.findByIdAndDelete(id);
+
+      if (!deletedItem) {
+          return res.status(404).json({ error: "Item not found" });
+      }
+
+      res.json({
+          message: "Item deleted successfully",
+          item: deletedItem, // Optionally return the deleted item details
+      });
+  } catch (error) {
+      console.error("Error deleting item:", error);
+      res.status(500).json({ error: "Failed to delete item" });
+  }
+});
 
 module.exports = router;

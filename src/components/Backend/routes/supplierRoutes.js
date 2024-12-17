@@ -1,40 +1,29 @@
 const express = require("express");
-const mongoose = require('mongoose');
-const Supplier = require("../models/Supplier"); // Assuming the Supplier model exists
+const mongoose = require("mongoose");
+const Supplier = require("../models/Supplier");
 const router = express.Router();
 
 // Add new supplier route
 router.post("/add", async (req, res) => {
     try {
-        // Log the raw request body for debugging
-        console.log('Raw Request Body:', req.body);
-
         const { companyName, contactInfo, email, address, userId } = req.body;
 
-        // Log the destructured data
-        console.log('Destructured Data:', { companyName, contactInfo, email, address, userId });
-
-        // Check if all required fields are present
         if (!companyName || !contactInfo || !email || !address) {
             return res.status(400).json({ error: "All fields are required" });
         }
 
-        // Create new supplier with provided data
         const newSupplier = new Supplier({
             companyName,
             contactInfo,
             email,
-            address, // Address field
+            address,
             user: userId,
         });
 
-        // Save supplier to the MongoDB collection
         await newSupplier.save();
 
-        // Destructure the necessary fields, including timestamps
-        const { createdAt, updatedAt } = newSupplier; // Access createdAt and updatedAt fields
+        const { createdAt, updatedAt } = newSupplier;
 
-        // Send response
         res.status(201).json({
             message: "Supplier added successfully",
             supplier: {
@@ -42,13 +31,12 @@ router.post("/add", async (req, res) => {
                 companyName: newSupplier.companyName,
                 contactInfo: newSupplier.contactInfo,
                 email: newSupplier.email,
-                address: newSupplier.address, // Address field
+                address: newSupplier.address,
                 userId: newSupplier.user,
-                createdAt, // Auto-generated createdAt timestamp
-                updatedAt, // Auto-generated updatedAt timestamp
+                createdAt,
+                updatedAt,
             },
         });
-
     } catch (error) {
         console.error("Error in adding supplier:", error);
         res.status(500).json({ error: "Failed to add supplier" });
@@ -58,34 +46,84 @@ router.post("/add", async (req, res) => {
 // Get all suppliers
 router.get("/sup", async (req, res) => {
     try {
-        const suppliers = await Supplier.find(); // Fetch all suppliers from MongoDB
-        res.json(suppliers); // Send suppliers as response
+        const suppliers = await Supplier.find();
+        res.json(suppliers);
     } catch (err) {
-        console.error('Error fetching suppliers:', err);
-        res.status(500).json({ message: 'Error fetching suppliers' });
+        console.error("Error fetching suppliers:", err);
+        res.status(500).json({ message: "Error fetching suppliers" });
     }
 });
-//Supplier from user id
-router.get('/supplier', async (req, res) => {
-    const userId = req.query.userId;  // Extract userId from query parameters
+
+// Supplier from user ID
+router.get("/supplier", async (req, res) => {
+    const userId = req.query.userId;
+
     if (!userId) {
-        return res.status(400).json({ error: 'User ID is required.' });
+        return res.status(400).json({ error: "User ID is required." });
     }
 
     try {
-        // Convert userId to ObjectId if it's a string
         const userObjectId = mongoose.Types.ObjectId(userId);
-
-        // Fetch suppliers for the specified userId from the database
         const suppliers = await Supplier.find({ user: userObjectId });
 
-        // Return the suppliers in the response
-        res.json({ message: 'Suppliers retrieved successfully', suppliers });
+        res.json({ message: "Suppliers retrieved successfully", suppliers });
     } catch (err) {
-        console.error('Error fetching suppliers:', err);
-        res.status(500).json({ error: 'Failed to fetch suppliers.' });
+        console.error("Error fetching suppliers:", err);
+        res.status(500).json({ error: "Failed to fetch suppliers." });
     }
 });
 
+// Update supplier by ID
+router.put("/update/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { companyName, contactInfo, email, address } = req.body;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "Invalid supplier ID" });
+        }
+
+        const updatedSupplier = await Supplier.findByIdAndUpdate(
+            id,
+            { companyName, contactInfo, email, address },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedSupplier) {
+            return res.status(404).json({ error: "Supplier not found" });
+        }
+
+        res.json({
+            message: "Supplier updated successfully",
+            supplier: updatedSupplier,
+        });
+    } catch (error) {
+        console.error("Error updating supplier:", error);
+        res.status(500).json({ error: "Failed to update supplier" });
+    }
+});
+
+// Delete supplier by ID
+router.delete("/delete/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check if the provided supplier ID is valid
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(400).json({ error: "Invalid supplier ID" });
+        }
+
+        const deletedSupplier = await Supplier.findByIdAndDelete(id);
+
+        if (!deletedSupplier) {
+            return res.status(404).json({ error: "Supplier not found" });
+        }
+
+        res.json({ message: "Supplier deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting supplier:", error);
+        res.status(500).json({ error: "Failed to delete supplier" });
+    }
+});
 
 module.exports = router;
