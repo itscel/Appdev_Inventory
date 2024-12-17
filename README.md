@@ -1,6 +1,3 @@
-Here is the updated version of the **LCM Inventory App** documentation with the member names included:
-
----
 
 # LCM Inventory App
 
@@ -99,7 +96,3 @@ Make sure to follow the project’s code style and ensure all tests pass before 
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
-
----
-
-Let me know if you need any more updates or changes to the documentation!
