@@ -32,12 +32,8 @@ const SupplierPage = () => {
             </div>
             <div className="supplier-container">
                 <div className="supplier-head">
-                    <div>
-                        <h1>Supplier Page</h1>
-                    </div>
-                    <div className="supplier-head">
-                        <button onClick={handleAddSupplierClick}>Add Supplier</button>
-                    </div>
+                    <h1>Supplier Page</h1>
+                    <button onClick={handleAddSupplierClick}>Add Supplier</button>
                 </div>
                 <div className="supplier-stock">
                     <SupplierBox />

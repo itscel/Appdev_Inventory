@@ -1,36 +1,105 @@
-.supplier-box {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+/* SupplierBox.css */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+    text-align: center; /* Center all table content */
 }
 
-.supplier-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 250px;
-    background-color: #f9f9f9;
+.supplier-table th,
+.supplier-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center; /* Ensures content is centered */
+    word-wrap: break-word; /* Prevents overflow of text */
 }
 
-.supplier-card h3 {
-    font-size: 1.5rem;
-    color: #333;
+.supplier-table th {
+    background-color: #49225B;
+    color: white;
 }
 
-.supplier-card p {
-    font-size: 1rem;
-    color: #555;
+.supplier-table tr:nth-child(even) {
+    background-color: #F5EBFA;
 }
 
-.error-message {
-    color: red;
-    font-weight: bold;
-    text-align: center;
+.supplier-table tr:hover {
+    background-color: #E7DBEF;
 }
 
-.loading-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #777;
+.supplier-table button {
+    padding: 6px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.supplier-table button:hover {
+    background-color: #49225B;
+}
+
+.supplier-table .delete-button {
+    background-color: #F44336;
+}
+
+.supplier-table .delete-button:hover {
+    background-color: #E53935;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .supplier-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling */
+    }
+
+    .supplier-table th,
+    .supplier-table td {
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
+
+    .supplier-table th {
+        background-color: #49225B;
+        color: white;
+        text-align: center;
+    }
+
+    .supplier-table td {
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .supplier-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 120px;
+        text-transform: capitalize;
+        padding-right: 10px;
+    }
+
+    .supplier-table button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+/* For extra small devices (mobile portrait mode) */
+@media (max-width: 480px) {
+    .supplier-table td:before {
+        font-size: 12px;
+        width: 100px; /* Adjust label width for smaller screens */
+    }
+
+    .supplier-table td {
+        font-size: 14px; /* Smaller font for mobile */
+    }
 }

@@ -34,7 +34,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/api/sup/add', {
+            const response = await fetch('http://localhost:5001/api/sup/add', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

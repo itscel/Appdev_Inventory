@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import RoutesComponent from './routes/routes';  // Import the RoutesComponent
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

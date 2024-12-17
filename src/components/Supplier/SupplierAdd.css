@@ -12,51 +12,87 @@
 }
 
 .modal-view {
-    background-color: white;
+    background-color: #F5EBFA;
     padding: 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px; /* Ensures the modal doesn't grow too large on bigger screens */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .modal-view h2 {
     margin-bottom: 20px;
+    color: #49225B;
+    font-size: 1.5rem;
+    text-align: center;
 }
 
 .modal-view label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    color: #6E3482;
+    font-size: 0.9rem;
 }
 
 .modal-view input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #A56ABD;
     border-radius: 5px;
+    font-size: 1rem;
 }
 
 .add-button,
 .close-button {
     padding: 10px 20px;
     margin-top: 10px;
-    background-color: #4CAF50;
+    background-color: #6E3482;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
 }
 
 .add-button:hover,
 .close-button:hover {
-    background-color: #45a049;
+    background-color: #49225B;
 }
 
 .close-button {
-    background-color: #f44336;
+    background-color: #B0B0B0;  /* Gray color for the close button */
 }
 
 .close-button:hover {
-    background-color: #e53935;
+    background-color: #8C8C8C; /* Darker gray on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+    .modal-view {
+        width: 90%; /* Reduce width on smaller screens */
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .modal-view h2 {
+        font-size: 1.2rem; /* Smaller title font */
+    }
+
+    .modal-view label {
+        font-size: 0.85rem; /* Smaller font for labels */
+    }
+
+    .modal-view input {
+        font-size: 0.9rem; /* Slightly smaller font for inputs */
+    }
+
+    .add-button,
+    .close-button {
+        font-size: 0.9rem;
+        padding: 8px 16px; /* Smaller button padding */
+    }
 }
