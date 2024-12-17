@@ -21,6 +21,9 @@ const SidebarPage = () => {
                 setActivePage('supplier');
                 setShowPage(true);
             }
+        } else if (page === 'report') {
+            navigate('/report');
+            setShowPage(false);
         } else {
             setActivePage(page);
             setShowPage(!showPage);
@@ -93,6 +96,12 @@ const SidebarPage = () => {
                         className="button-image"
                     />
                     <span className="button-text">Supplier</span>
+                </button>
+                <button
+                    className="sidebar-button"
+                    onClick={() => handleButtonClick('report')}
+                >
+                    <span className="button-text">Report</span>
                 </button>
                 <button onClick={handleLogout}>Logout</button>
             </div>

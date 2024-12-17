@@ -1,0 +1,36 @@
+.lowstock-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.lowstock-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 250px;
+    background-color: #f9f9f9;
+}
+
+.lowstock-card h3 {
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.lowstock-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+}

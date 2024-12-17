@@ -4,8 +4,9 @@ import DashboardPage from '../components/Dashboard/DashboardPage';
 import RegisterPage from '../components/Register/RegisterPage';
 import LoginPage from '../components/Login/LoginPage';
 import BusinessProfilePage from '../components/BusinessProfile/BusinessProfilePage';
-import ItemPage from '../components/Items/ItemPage';  
-import SupplierPage from '../components/Supplier/SupplierPage';  
+import ItemPage from '../components/Items/ItemPage';
+import SupplierPage from '../components/Supplier/SupplierPage';
+import ReportPage from '../components/Report/ReportPage';
 
 
 const RoutesComponent = ({ isAuthenticated, login, logout }) => {
@@ -36,11 +37,15 @@ const RoutesComponent = ({ isAuthenticated, login, logout }) => {
       />
       <Route
         path="/items"
-        element={<ItemPage login={login}/>}
+        element={<ItemPage login={login} />}
       />
       <Route
         path="/supplier"
-        element={<SupplierPage login={login}/>}
+        element={<SupplierPage login={login} />}
+      />
+      <Route
+        path="/report"
+        element={<ReportPage login={login} />}
       />
     </Routes>
   );
