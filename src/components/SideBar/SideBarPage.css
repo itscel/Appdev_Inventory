@@ -1,5 +1,5 @@
 .sidebar {
-    width: 2in;
+    width: 1.5in;  /* Smaller width */
     top: 0;
     background-color: #6E3482;
     height: 100vh;
@@ -12,21 +12,11 @@
     z-index: 1;
 }
 
-.sidebar-container {
-    width: 2in;
-    flex-shrink: 0;
-}
-
-.sidebar-button .button-text {
-    font-family: 'Inter', sans-serif;
-    color: #fff;
-    font-size: 16px;
-}
-
 .sidebar-logo {
-    width: 80%;
+    width: 60%;  /* Reduce logo size */
     height: auto;
     max-width: 100%;
+    margin-bottom: 30px; /* Add spacing below logo */
 }
 
 .sidebar-button {
@@ -34,43 +24,44 @@
     padding: 10px;
     cursor: pointer;
     background: none;
-    margin: 20px;
+    margin: 15px 0;
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
-    width: 80%;
+    width: 100%;
+    position: relative; /* For tooltip positioning */
 }
 
+.sidebar-button i {
+    font-size: 20px; /* Smaller icons */
+    color: #fff;
+}
 
 .sidebar-button:hover {
     background-color: rgba(240, 240, 240, 0.5);
     border-radius: 5px;
 }
 
-h1 {
-    color: #333;
-    font-size: 24px;
-    text-align: center;
+/* Tooltip styles */
+.sidebar-button .tooltip {
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    margin-left: 10px;
+    background-color: #6E3482;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.button-image {
-    width: 30px;
-    height: 30px;
+.sidebar-button:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
 }
 
-
-.slide-page {
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    left: 2in;
-    width: 3in;
-    height: 100vh;
-    transition: transform 0.5s ease-in-out;
-    transform: translateX(-100%);
-    z-index: 0;
-}
-
-.slide-page.show {
-    transform: translateX(0);
-}

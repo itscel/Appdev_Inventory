@@ -1,40 +1,121 @@
+/* SupplierPage.css */
+
+/* Container for the entire page */
 .supplier-container {
-    margin-left: 2in;
-    min-height: 100vh;
-    overflow: auto;
-    width: calc(100vw - 2in)
-}
-
-.supplier-stock {
-    margin: 20px;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
     padding: 20px;
-    overflow: auto;
-    width: auto;
+    margin-left: 200px; /* Adjust according to sidebar width */
 }
 
+/* Header section styling */
 .supplier-head {
-    margin: 20px;
-    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color:#49225B;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
+/* Heading styling */
+.supplier-head h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+    text-transform: capitalize;
+}
 
+/* Button Styling */
 .supplier-head button {
-    width: 150px;
-    padding: 10px;
-    font-size: 14px;
-    text-align: center;
-    margin-right: 10px;
-    border: none;
-    background-color: #4CAF50;
+    background-color: #6E3482; /* Purple button color */
     color: white;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+/* Button Hover Effect */
 .supplier-head button:hover {
-    background-color: #45a049;
+    background-color: #49225B; /* Darker purple on hover */
+}
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem; /* Icon size */
+    padding: 5px;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+.icon-btn:hover {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}
+
+/* Edit button style */
+.edit-btn {
+    color: #6E3482; /* Purple color for edit icon */
+}
+
+.edit-btn:hover {
+    color: #49225B; /* Darker purple on hover */
+}
+
+/* Delete button style */
+.delete-btn {
+    color: #F44336; /* Red color for delete icon */
+}
+
+.delete-btn:hover {
+    color: #D32F2F; /* Darker red on hover */
+}
+
+/* Table styling */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.supplier-table th, .supplier-table td {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.supplier-table th {
+    background-color: #49225B; /* Purple background */
+    color: white;
+}
+
+.supplier-table tr:nth-child(even) {
+    background-color: #F5EBFA; /* Light purple background for even rows */
+}
+
+.supplier-table tr:hover {
+    background-color: #E7DBEF; /* Slightly darker purple background on hover */
+}
+/* Mobile responsiveness for header */
+@media (max-width: 768px) {
+    .supplier-head {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .supplier-head h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .supplier-head button {
+        width: 100%;
+        padding: 10px;
+    }
 }

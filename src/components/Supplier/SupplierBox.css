@@ -1,36 +1,177 @@
-.supplier-box {
+/* SupplierBox.css */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+    text-align: center; /* Center all table content horizontally */
+}
+
+.supplier-table th,
+.supplier-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: center; /* Center all content horizontally */
+    vertical-align: middle; /* Center content vertically */
+    word-wrap: break-word; /* Prevents overflow of text */
+}
+
+.supplier-table th {
+    background-color: #49225B;
+    color: white;
+}
+
+.supplier-table tr:nth-child(even) {
+    background-color: #F5EBFA;
+}
+
+.supplier-table tr:hover {
+    background-color: #E7DBEF;
+}
+
+.supplier-table button {
+    padding: 6px 12px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.supplier-table button:hover {
+    background-color: #49225B;
+}
+
+/* Red delete button */
+.supplier-table .delete-button {
+    background-color: #F44336; /* Red background */
+}
+
+.supplier-table .delete-button:hover {
+    background-color: #E53935; /* Darker red when hovering */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .supplier-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto; /* Allow horizontal scrolling on smaller screens */
+        -webkit-overflow-scrolling: touch; /* Enable smooth scrolling */
+    }
+
+    .supplier-table th,
+    .supplier-table td {
+        display: block;
+        width: 100%;
+        text-align: center;
+        vertical-align: middle; /* Ensure vertical centering in mobile view */
+    }
+
+    .supplier-table th {
+        background-color: #49225B;
+        color: white;
+        text-align: center;
+    }
+
+    .supplier-table td {
+        text-align: center;
+        border-top: 1px solid #ddd;
+    }
+
+    .supplier-table td:before {
+        content: attr(data-label);
+        font-weight: bold;
+        display: inline-block;
+        width: 120px;
+        text-transform: capitalize;
+        padding-right: 10px;
+    }
+
+    .supplier-table button {
+        width: 100%;
+        margin-top: 5px;
+    }
+}
+
+/* Styling for the Supplier Table */
+.supplier-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    table-layout: fixed;
+    text-align: center; /* Center all table content horizontally */
+}
+
+/* Table header and cell styling */
+.supplier-table th,
+.supplier-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    vertical-align: middle; /* Center content vertically */
+    word-wrap: break-word; /* Prevents overflow of text */
+    text-align: center; /* Center the content inside each cell */
+}
+
+/* Table header styling */
+.supplier-table th {
+    background-color: #49225B;
+    color: white;
+}
+
+/* Even row styling */
+.supplier-table tr:nth-child(even) {
+    background-color: #F5EBFA;
+}
+
+/* Row hover effect */
+.supplier-table tr:hover {
+    background-color: #E7DBEF;
+}
+
+/* Styling for the Actions column */
+.supplier-table td:last-child {
+    text-align: center; /* Center the content inside the Actions column */
     display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
+    justify-content: center; /* Center the buttons horizontally */
+    gap: 10px; /* Add space between buttons */
 }
 
-.supplier-card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    width: 250px;
-    background-color: #f9f9f9;
-}
-
-.supplier-card h3 {
-    font-size: 1.5rem;
-    color: #333;
-}
-
-.supplier-card p {
-    font-size: 1rem;
-    color: #555;
-}
-
-.error-message {
-    color: red;
-    font-weight: bold;
+/* Button styling for actions (update, delete) */
+.supplier-table button {
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: #6E3482;
+    color: white;
+    border: none;
+    border-radius: 4px;
     text-align: center;
 }
 
-.loading-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #777;
+/* Button hover effect */
+.supplier-table button:hover {
+    background-color: #49225B;
+}
+
+/* Delete button styling */
+.supplier-table .delete-button {
+    background-color: #F44336;
+}
+
+/* Delete button hover effect */
+.supplier-table .delete-button:hover {
+    background-color: #E53935;
+}
+
+/* For extra small devices (mobile portrait mode) */
+@media (max-width: 480px) {
+    .supplier-table td:before {
+        font-size: 12px;
+        width: 100px; /* Adjust label width for smaller screens */
+    }
+
+    .supplier-table td {
+        font-size: 14px; /* Smaller font for mobile */
+    }
 }

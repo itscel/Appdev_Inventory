@@ -14,13 +14,13 @@ const SupplierBox = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    setError('User  not authenticated.');
+                    setError('User not authenticated.');
                     setLoading(false);
                     return;
                 }
 
                 const userId = localStorage.getItem('userID');
-                const response = await fetch(`http://localhost:5000/api/sup/supplier?userId=${userId}`, {
+                const response = await fetch(`http://localhost:5001/api/sup/supplier?userId=${userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -56,7 +56,7 @@ const SupplierBox = () => {
         if (!confirmDelete) return;
 
         try {
-            const response = await fetch(`http://localhost:5000/api/sup/delete/${supplierId}`, {
+            const response = await fetch(`http://localhost:5001/api/sup/delete/${supplierId}`, {
                 method: 'DELETE',
             });
 
@@ -85,21 +85,45 @@ const SupplierBox = () => {
     return (
         <div>
             <h2>Suppliers</h2>
-            <ul>
-                {suppliers.map((supplier) => (
-                    <li key={supplier._id}>
-                        <h3>{supplier.companyName}</h3>
-                        <p>Contact: {supplier.contactInfo}</p>
-                        <p>Email: {supplier.email}</p>
-                        <p>Address: {supplier.address}</p>
-                        <button onClick={() => {
-                            setCurrentSupplier(supplier);
-                            setModalVisible(true);
-                        }}>Edit</button>
-                        <button onClick={() => handleDelete(supplier._id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
+            {/* Suppliers Table */}
+            <table className="supplier-table">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {suppliers.map((supplier) => (
+                        <tr key={supplier._id}>
+                            <td data-label="Company Name">{supplier.companyName}</td>
+                            <td data-label="Contact">{supplier.contactInfo}</td>
+                            <td data-label="Email">{supplier.email}</td>
+                            <td data-label="Address">{supplier.address}</td>
+                            <td data-label="Actions">
+                                <button
+                                    onClick={() => {
+                                        setCurrentSupplier(supplier);
+                                        setModalVisible(true);
+                                    }}
+                                    className="btn btn-primary"
+                                >
+                                    <i className="bi bi-pencil-square"></i> 
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(supplier._id)}
+                                    className="btn delete-button"
+                                >
+                                    <i className="bi bi-trash"></i> 
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
 
             <SupplierUpdate
                 isVisible={isModalVisible}

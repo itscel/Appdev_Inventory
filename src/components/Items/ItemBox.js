@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './ItemBox.css'; // Optional: Add styles for the ItemBox component
+import './ItemBox.css'; // Import the styling
 import ItemUpdate from './ItemUpdate'; // Import the ItemUpdate modal component
 
 const ItemBox = () => {
@@ -14,14 +14,13 @@ const ItemBox = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    setError('User  not authenticated.');
+                    setError('User not authenticated.');
                     setLoading(false);
                     return;
                 }
 
                 const userId = localStorage.getItem('userID');
-
-                const response = await fetch(`http://localhost:5000/api/inv/items?userId=${userId}`, {
+                const response = await fetch(`http://localhost:5001/api/inv/items?userId=${userId}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -35,8 +34,8 @@ const ItemBox = () => {
 
                 const data = await response.json();
                 setItems(data.items);
-            } catch (err) {
-                console.error('Error fetching items:', err);
+            } catch (error) {
+                console.error('Error fetching items:', error);
                 setError('Failed to load items. Please try again later.');
             } finally {
                 setLoading(false);
@@ -46,13 +45,19 @@ const ItemBox = () => {
         fetchItems();
     }, []);
 
+    const handleUpdate = (updatedItem) => {
+        setItems((prevItems) =>
+            prevItems.map((item) => (item._id === updatedItem._id ? updatedItem : item))
+        );
+    };
+
     const handleDelete = async (itemId) => {
         const confirmDelete = window.confirm('Are you sure you want to delete this item?');
         if (!confirmDelete) return;
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:5000/api/inv/delete/${itemId}`, {
+            const response = await fetch(`http://localhost:5001/api/inv/delete/${itemId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -73,12 +78,6 @@ const ItemBox = () => {
         }
     };
 
-    // Open the update modal
-    const openUpdateModal = (item) => {
-        setCurrentItem(item);
-        setModalVisible(true);
-    };
-
     if (loading) {
         return <div>Loading items...</div>;
     }
@@ -88,30 +87,53 @@ const ItemBox = () => {
     }
 
     return (
-        <div className="item-box">
-            {items.length > 0 ? (
-                items.map((item) => (
-                    <div key={item._id} className="item-card">
-                        <h3>{item.name}</h3>
-                        <p>Price: ${item.price}</p>
-                        <button onClick={() => openUpdateModal(item)}>Update</button>
-                        <button onClick={() => handleDelete(item._id)}>Delete</button>
-                    </div>
-                ))
-            ) : (
-                <div>No items found.</div>
-            )}
+        <div>
+            <h2>Items</h2>
+            {/* Items Table */}
+            <table className="item-table">
+                <thead>
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Price</th>
+                        <th>Category</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {items.map((item) => (
+    <tr key={item._id}>
+        <td data-label="Item Name">{item.name}</td>
+        <td data-label="Price">${item.price}</td>
+        <td data-label="Category">{item.category || 'N/A'}</td>
+        <td data-label="Actions" className="actions-cell">
+            <button
+                onClick={() => {
+                    setCurrentItem(item);
+                    setModalVisible(true);
+                }}
+                className="btn btn-primary"
+            >
+                <i className="bi bi-pencil-square"> </i>
+            </button>
+            <button
+                onClick={() => handleDelete(item._id)}
+                className="btn btn-danger delete-button"
+            >
+                <i className="bi bi-trash"></i>
+            </button>
+        </td>
+    </tr>
+))}
 
+                </tbody>
+            </table>
+
+            {/* Update modal */}
             <ItemUpdate
                 isVisible={isModalVisible}
                 onClose={() => setModalVisible(false)}
                 item={currentItem}
-                onUpdate={(updatedItem) => {
-                    setItems((prevItems) =>
-                        prevItems.map((i) => (i._id === updatedItem._id ? updatedItem : i))
-                    );
-                    setModalVisible(false);
-                }}
+                onUpdate={handleUpdate}
             />
         </div>
     );

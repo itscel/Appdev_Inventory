@@ -1,40 +1,80 @@
+/* Main Container */
+.report-page {
+    display: flex;
+    height: 100vh;
+}
+
+
+
+/* Report Content */
 .report-container {
     margin-left: 2in;
     min-height: 100vh;
     overflow: auto;
-    width: calc(100vw - 2in)
-}
-
-.report-stock {
-    margin: 20px;
-    flex: 1;
+    width: calc(100vw - 2in);
+    flex-grow: 1;
     padding: 20px;
-    overflow: auto;
-    width: auto;
 }
 
+/* Report Header */
 .report-head {
     margin: 20px;
     padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 20px;
+    color: #49225B;
 }
 
-
-.report-head button {
-    width: 150px;
-    padding: 10px;
-    font-size: 14px;
+/* Report Title */
+.report-head h1 {
     text-align: center;
-    margin-right: 10px;
-    border: none;
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+    margin-bottom: 20px;
 }
 
-.report-head button:hover {
-    background-color: #45a049;
+/* Loading and Error Messages */
+.loading-message, .error-message {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* View Toggle Buttons */
+.view-toggle {
+    margin-bottom: 20px;
+}
+
+.view-toggle button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #49225B; /* Match your theme color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.view-toggle button:hover {
+    background-color: #6E3482; /* Highlight on hover */
+}
+
+.view-toggle button.active {
+    background-color: #A56ABD; /* Active button style */
+}
+
+/* Charts Layout */
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Adds space between the charts */
+}
+
+.chart-item {
+    width: 48%; /* Adjust the width of each chart */
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

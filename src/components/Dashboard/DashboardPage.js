@@ -1,30 +1,63 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarPage from '../SideBar/SideBarPage';
+import RecentActivities from '../Report/RecentActivities';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 import './DashboardPage.css';
-import ReportPage from '../Report/LowStock'; // Correct the import path as needed
 
 const DashboardPage = () => {
     const navigate = useNavigate();
+    const [isTokenValid, setIsTokenValid] = useState(true);
+    const [stats, setStats] = useState({
+        totalItems: 0,
+        lowStockItems: 0,
+        suppliers: 0,
+        recentActivities: [],
+    });
+
+    // Fetch stats from API
+    const fetchStats = async () => {
+        try {
+            const response = await fetch('your-api-endpoint'); // Replace with actual API
+            const data = await response.json();
+            setStats({
+                totalItems: data.totalItems,
+                lowStockItems: data.lowStockItems,
+                suppliers: data.suppliers,
+                recentActivities: data.recentActivities,
+            });
+        } catch (err) {
+            console.error('Error fetching stats:', err);
+        }
+    };
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login');
         } else {
-            // You can also check token expiration here, if needed
-            // For example, if token has an expiration time, check if it's expired
-            const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decoding the JWT
-            const isTokenExpired = decodedToken.exp * 1000 < Date.now(); // Expiry is in seconds
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const expiryTime = decodedToken.exp * 1000;
+            const currentTime = Date.now();
 
-            if (isTokenExpired) {
+            if (expiryTime < currentTime) {
                 localStorage.removeItem('token');
+                setIsTokenValid(false);
                 navigate('/login');
             }
         }
     }, [navigate]);
 
-    console.log(localStorage.getItem('userID')); // Check if userID is stored correctly
+    useEffect(() => {
+        // Fetch stats when component mounts and token is valid
+        if (isTokenValid) {
+            fetchStats();
+        }
+    }, [isTokenValid]);
+
+    if (!isTokenValid) {
+        return null; // Optionally show loading or error page
+    }
 
     return (
         <div className="dashboard-container">
@@ -32,11 +65,27 @@ const DashboardPage = () => {
                 <SidebarPage />
             </div>
             <div className="dashboard-content">
-                <h1>Dashboard Page</h1>
-                <p>This is where you can manage or view your items.</p>
-            </div>
-            <div>
-                <ReportPage />
+                <div className="dashboard-header">
+                    <h1>Dashboard</h1>
+                </div>
+                <div className="dashboard-stats">
+                    <div className="stat-card">
+                        <i className="bi bi-box"></i>
+                        <h3>Total Items</h3>
+                        <p>{stats.totalItems}</p>
+                    </div>
+                    <div className="stat-card">
+                        <i className="bi bi-box-arrow-down"></i>
+                        <h3>Low Stock Items</h3>
+                        <p>{stats.lowStockItems}</p>
+                    </div>
+                    <div className="stat-card">
+                        <i className="bi bi-person"></i>
+                        <h3>Suppliers</h3>
+                        <p>{stats.suppliers}</p>
+                    </div>
+                </div>
+                <RecentActivities activities={stats.recentActivities} />
             </div>
         </div>
     );

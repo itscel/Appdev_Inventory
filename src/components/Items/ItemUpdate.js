@@ -43,7 +43,7 @@ const ItemUpdate = ({ isVisible, onClose, item, onUpdate }) => {
         };
 
         try {
-            const response = await fetch(`http://localhost:5000/api/inv/update/${item._id}`, {
+            const response = await fetch(`http://localhost:5001/api/inv/update/${item._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

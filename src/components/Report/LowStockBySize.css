@@ -1,0 +1,89 @@
+/* Ensure the body of the page is scrollable */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Allow vertical scrolling */
+    height: 100%;
+    font-family: 'Arial', sans-serif; /* Set a consistent font */
+    background-color: #F5EBFA; /* Soft background color */
+}
+
+/* Container for LowStock page */
+.lowstock-box {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    height: auto;
+    overflow: hidden;
+}
+
+/* Make the chart container smaller and centered */
+.lowstock-chart-container {
+    width: 100%;
+    max-width: 900px; /* Max width to prevent it from becoming too large */
+    margin: 0 auto; /* Center the chart horizontally */
+    height: 300px; /* Fixed height for the chart */
+    margin-bottom: 40px; /* Add spacing below the chart */
+}
+
+/* Styling for the low stock list */
+.lowstock-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 500px; /* Restrict height to create a scrollable section */
+    overflow-y: auto; /* Allow scrolling when content overflows */
+    padding-right: 10px; /* Add padding to avoid content touching the edge */
+}
+
+/* Styling for each low stock card */
+.lowstock-card {
+    background-color: #E7DBEF; /* Light background color */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Softer, larger shadow */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for the cards */
+.lowstock-card:hover {
+    transform: translateY(-5px); /* Lift the card on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Stronger shadow on hover */
+}
+
+/* Heading for each low stock size section */
+.lowstock-card h3 {
+    color: #49225B; /* Dark purple for headings */
+    font-size: 20px;
+    margin-bottom: 10px; /* Add space below heading */
+}
+
+/* Styling for the list of items */
+.lowstock-card ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Styling for each list item */
+.lowstock-card li {
+    font-size: 16px;
+    color: #6E3482; /* Use the second theme color for item text */
+    margin-bottom: 8px; /* Add space between items */
+}
+
+/* Styling for error messages */
+.error-message {
+    color: red;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 50px; /* Add margin to separate from other content */
+}
+
+/* Styling for loading text */
+.loading-text {
+    text-align: center;
+    font-size: 18px;
+    color: #6E3482;
+    margin-top: 50px;
+}
+

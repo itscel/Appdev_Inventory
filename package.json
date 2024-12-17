@@ -5,6 +5,8 @@
     "@testing-library/user-event": "^13.5.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
+    "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
@@ -13,6 +15,7 @@
     "mongoose": "^5.13.22",
     "mysql2": "^3.11.4",
     "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.0",
     "react-scripts": "5.0.1",
@@ -21,8 +24,8 @@
   },
   "scripts": {
     "start": "concurrently \"npm run server\" \"react-scripts start\"",
-    "setup-env": "node src\\components\\Backend\\setupEnv.js",
-    "server": "node src\\components\\Backend\\server.js",
+    "setup-env": "node src/components/Backend/setupEnv.js",
+    "server": "node src/components/Backend/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
