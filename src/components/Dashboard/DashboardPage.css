@@ -1,6 +1,7 @@
 /* General Layout */
 .dashboard-container {
     display: flex;
+    flex-direction: column; /* Stack content vertically */
     padding: 20px;
     min-height: 100vh;
     background-color: #F5EBFA; /* Light background color */
@@ -8,12 +9,13 @@
 
 /* Content Area */
 .dashboard-content {
-    flex-grow: 1;
-    padding: 30px;
-    background-color: transparent; /* Remove white background */
+    flex: 1; /* Consume all available space */
+    padding: 40px; 
+    background-color: transparent; /* Background matches theme */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-left: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
@@ -25,23 +27,24 @@
 }
 
 .dashboard-header h1 {
-    font-size: 2.2rem;
+    font-size: 2.5rem; /* Slightly increase font size */
     font-weight: bold;
     color: #49225B; /* Dark theme color */
     text-transform: capitalize;
+    margin-bottom: 10px;
 }
 
 /* Stats Section */
 .dashboard-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
     margin-bottom: 40px;
 }
 
 .stat-card {
     background-color: #A56ABD; /* Light purple */
-    padding: 30px;
+    padding: 50px;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -145,4 +148,37 @@
     .dashboard-stats {
         grid-template-columns: 1fr;
     }
+}
+/* Low Stock Table Container */
+.low-stock-table-container {
+    margin-top: 20px;
+    overflow-x: auto; /* Allows horizontal scrolling if the table is too wide */
+}
+
+/* Low Stock Table */
+.low-stock-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.low-stock-table th, .low-stock-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.low-stock-table th {
+    background-color: #6E3482;
+    color: white;
+    font-weight: bold;
+}
+
+.low-stock-table td {
+    background-color: #f9f9f9;
+}
+
+/* Low Stock Table Row on Hover */
+.low-stock-table tr:hover {
+    background-color: #f1f1f1;
 }

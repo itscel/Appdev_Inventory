@@ -1,0 +1,73 @@
+/* General Styles */
+.lowstock-dashboard-container {
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 900px;
+    margin: 30px auto;
+    font-family: 'Arial', sans-serif;
+    color: #49225B;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #6E3482;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* List Container */
+.lowstock-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Item Card */
+.lowstock-item-card {
+    background-color: #fff;
+    border: 1px solid #E7DBEF;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.lowstock-item-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.item-name {
+    font-size: 1.3rem;
+    color: #49225B;
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Sizes List */
+.size-detail {
+    color: #6E3482;
+    font-size: 1rem;
+    margin: 5px 0;
+    text-align: center;
+}
+
+.size-detail strong {
+    color: #A56ABD;
+}
+
+/* Loading and Error Messages */
+.loading-message,
+.error-message,
+.no-items-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #6E3482;
+    margin-top: 20px;
+}
+
+.no-items-message {
+    font-style: italic;
+    color: #A56ABD;
+}

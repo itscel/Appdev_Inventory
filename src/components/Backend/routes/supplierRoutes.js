@@ -42,17 +42,17 @@ router.post("/add", async (req, res) => {
         res.status(500).json({ error: "Failed to add supplier" });
     }
 });
-
 // Get all suppliers
 router.get("/sup", async (req, res) => {
     try {
         const suppliers = await Supplier.find();
-        res.json(suppliers);
+        res.status(200).json({ count: suppliers.length, data: suppliers });
     } catch (err) {
         console.error("Error fetching suppliers:", err);
         res.status(500).json({ message: "Error fetching suppliers" });
     }
 });
+
 
 // Supplier from user ID
 router.get("/supplier", async (req, res) => {
