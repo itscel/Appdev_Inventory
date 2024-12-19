@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import './LowStockBySize.css';
 
-// Register Chart.js components
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const LowStock = () => {
@@ -59,7 +59,7 @@ const LowStock = () => {
                     });
                 });
 
-                // Sort low-stock items by quantity (ascending)
+                // Sort low-stock items
                 Object.keys(lowStockData).forEach((size) => {
                     lowStockData[size].sort((a, b) => a.quantity - b.quantity);
                 });
@@ -76,7 +76,7 @@ const LowStock = () => {
         fetchItems();
     }, []);
 
-    // Prepare data for the chart
+    // Prepare data 
     const chartData = {
         labels: ['XS', 'S', 'M', 'L', 'XL'],
         datasets: [

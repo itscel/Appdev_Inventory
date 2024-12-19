@@ -13,10 +13,10 @@ const ItemSchema = new mongoose.Schema(
         category: { type: String, required: true },
         subCategory: { type: String, required: true },
         supplier: { type: mongoose.Schema.Types.ObjectId, ref: 'Supplier', required: true },
-        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Ensure this field is correct
+        user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, 
     },
     {
-        timestamps: true, // This will add `createdAt` and `updatedAt` timestamps
+        timestamps: true, 
     }
 );
 

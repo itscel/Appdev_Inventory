@@ -9,7 +9,7 @@ const supplierSchema = new mongoose.Schema(
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'User' },
   },
   {
-    timestamps: true, // Enable automatic timestamps (createdAt and updatedAt)
+    timestamps: true,
   }
 );
 

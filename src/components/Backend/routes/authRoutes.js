@@ -1,8 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User"); // User model
-const BusinessProfile = require("../models/BusinessProfile"); // BusinessProfile model
+const User = require("../models/User"); 
+const BusinessProfile = require("../models/BusinessProfile"); 
 const router = express.Router();
 
 // Register route
@@ -60,19 +60,18 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ error: "Email and password are required" });
         }
 
-        // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(404).json({ error: "User  not found" });
         }
 
-        // Compare password with the hashed password
+        
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ error: "Invalid credentials" });
         }
 
-        // Generate a JWT token
+        
         const token = jwt.sign({ id: user._id }, "default_secret", {
             expiresIn: "1h",
         });

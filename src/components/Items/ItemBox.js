@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './ItemBox.css'; // Import the styling
-import ItemUpdate from './ItemUpdate'; // Import the ItemUpdate modal component
+import './ItemBox.css';
+import ItemUpdate from './ItemUpdate'; 
 
 const ItemBox = () => {
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [currentItem, setCurrentItem] = useState(null); // State to store the item being updated
+    const [currentItem, setCurrentItem] = useState(null); 
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -69,7 +69,7 @@ const ItemBox = () => {
                 throw new Error('Failed to delete item');
             }
 
-            // Remove the deleted item from the UI
+            
             setItems((prevItems) => prevItems.filter((item) => item._id !== itemId));
             alert('Item deleted successfully!');
         } catch (error) {
@@ -128,7 +128,7 @@ const ItemBox = () => {
                 </tbody>
             </table>
 
-            {/* Update modal */}
+            {}
             <ItemUpdate
                 isVisible={isModalVisible}
                 onClose={() => setModalVisible(false)}

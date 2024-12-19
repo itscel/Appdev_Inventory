@@ -5,7 +5,7 @@ const folderSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      unique: true, // Ensure folder names are unique
+      unique: true, 
       trim: true,
     },
     createdAt: {
@@ -14,7 +14,7 @@ const folderSchema = new mongoose.Schema(
     },
     items: [{
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Item', // Reference to the Item model
+      ref: 'Item', 
     }],
   },
   {

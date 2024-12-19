@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SupplierAdd.css'; // Use the same styles as SupplierAdd
+import './SupplierAdd.css'; 
 
 const SupplierUpdate = ({ isVisible, onClose, supplier, onUpdate }) => {
     const [companyName, setCompanyName] = useState('');
@@ -7,7 +7,7 @@ const SupplierUpdate = ({ isVisible, onClose, supplier, onUpdate }) => {
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
 
-    // Load supplier data when the modal is visible
+    
     useEffect(() => {
         if (supplier) {
             setCompanyName(supplier.companyName);
@@ -40,9 +40,9 @@ const SupplierUpdate = ({ isVisible, onClose, supplier, onUpdate }) => {
             }
 
             const data = await response.json();
-            onUpdate(data.supplier); // Call the update function passed as a prop to refresh the supplier list
+            onUpdate(data.supplier); 
             alert("Supplier updated successfully!");
-            onClose(); // Close the modal after updating
+            onClose();
         } catch (error) {
             console.error('Error updating supplier:', error);
             alert('Failed to update supplier: ' + error.message);

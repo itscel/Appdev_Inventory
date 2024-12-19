@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
 import './SideBarPage.css';
 
 const SidebarPage = () => {
@@ -36,33 +36,33 @@ const SidebarPage = () => {
                     title="Dashboard"
                     onClick={() => handleButtonClick('dashboard')}
                 >
-                    <i className="bi bi-house-door" /> {/* Dashboard Icon */}
+                    <i className="bi bi-house-door" /> {}
                 </button>
                 <button
                     className="sidebar-button"
                     title="Items"
                     onClick={() => handleButtonClick('items')}
                 >
-                    <i className="bi bi-box" /> {/* Item Icon */}
+                    <i className="bi bi-box" /> {}
                 </button>
                 <button
                     className="sidebar-button"
                     title="Supplier"
                     onClick={() => handleButtonClick('supplier')}
                 >
-                    <i className="bi bi-person" /> {/* Supplier Icon */}
+                    <i className="bi bi-person" /> {}
                 </button>
                 <button
                     className="sidebar-button"
                     onClick={() => handleButtonClick('report')}
                 >
-                    <i className="bi bi-file-earmark-bar-graph" /> {/* Report Icon */}
+                    <i className="bi bi-file-earmark-bar-graph" /> {}
                 </button>
                 <button className="sidebar-button" onClick={handleLogout}>
-                    <i className="bi bi-box-arrow-right" /> {/* Logout Icon */}
+                    <i className="bi bi-box-arrow-right" /> {}
                 </button>
             </div>
-            {/* No need for slide-page or renderContent anymore */}
+            {}
         </div>
     );
 };

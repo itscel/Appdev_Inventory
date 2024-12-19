@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import './SupplierBox.css'; // Optional: Add styles for the SupplierBox component
-import SupplierUpdate from './SupplierUpdate'; // Import the SupplierUpdate modal component
+import './SupplierBox.css'; 
+import SupplierUpdate from './SupplierUpdate'; 
 
 const SupplierBox = () => {
     const [suppliers, setSuppliers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isModalVisible, setModalVisible] = useState(false);
-    const [currentSupplier, setCurrentSupplier] = useState(null); // State to store the supplier being updated
+    const [currentSupplier, setCurrentSupplier] = useState(null); 
 
     useEffect(() => {
         const fetchSuppliers = async () => {
@@ -65,7 +65,7 @@ const SupplierBox = () => {
                 throw new Error('Failed to delete supplier: ' + errorText);
             }
 
-            // Remove the deleted supplier from the UI
+            
             setSuppliers((prevSuppliers) => prevSuppliers.filter((supplier) => supplier._id !== supplierId));
             alert("Supplier deleted successfully!");
         } catch (error) {

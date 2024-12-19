@@ -10,9 +10,9 @@ const BusinessProfilePage = () => {
 
     const handleSubmit = () => {
         if (companyName && address && contactNumber) {
-            // Here you would typically send the data to your backend
+            
             console.log('Business Profile Data:', { companyName, address, contactNumber });
-            // Navigate to the dashboard or another page after successful submission
+            
             navigate('/');
         } else {
             alert("Please fill in all fields.");

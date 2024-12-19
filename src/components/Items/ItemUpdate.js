@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ItemAdd.css'; // Use the same styles as ItemAdd
+import './ItemAdd.css'; 
 
 const ItemUpdate = ({ isVisible, onClose, item, onUpdate }) => {
     const [itemName, setItemName] = useState('');
@@ -11,8 +11,6 @@ const ItemUpdate = ({ isVisible, onClose, item, onUpdate }) => {
         XL: { quantity: '' },
     });
     const [price, setPrice] = useState('');
-
-    // Load item data when the modal is visible
     useEffect(() => {
         if (item) {
             setItemName(item.name);
@@ -57,9 +55,9 @@ const ItemUpdate = ({ isVisible, onClose, item, onUpdate }) => {
             }
 
             const data = await response.json();
-            onUpdate(data.item); // Call the update function passed as a prop to refresh the item list
+            onUpdate(data.item); 
             alert("Item updated successfully!");
-            onClose(); // Close the modal after updating
+            onClose(); 
         } catch (error) {
             console.error('Error updating item:', error);
             alert('Failed to update item: ' + error.message);

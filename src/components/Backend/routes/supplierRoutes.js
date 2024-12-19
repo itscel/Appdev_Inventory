@@ -108,7 +108,7 @@ router.delete("/delete/:id", async (req, res) => {
     try {
         const { id } = req.params;
 
-        // Check if the provided supplier ID is valid
+        
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ error: "Invalid supplier ID" });
         }

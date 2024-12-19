@@ -7,9 +7,9 @@ const supplierRoutes = require("./routes/supplierRoutes");
 
 const app = express();
 
-// Middleware
+
 app.use(cors({ origin: "http://localhost:3000", methods: ["GET", "POST", "PUT", "DELETE"] }));
-app.use(express.json()); // This is crucial for parsing the request body
+app.use(express.json()); 
 
 // Routes
 app.use("/api/auth", authRoutes);

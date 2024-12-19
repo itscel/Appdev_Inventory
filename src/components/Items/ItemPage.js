@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarPage from '../SideBar/SideBarPage';
-import ItemAdd from './ItemAdd';  // Import the ItemAdd component
+import ItemAdd from './ItemAdd'; 
 import ItemBox from './ItemBox';
 import './ItemPage.css';
 
 const ItemPage = () => {
     const navigate = useNavigate();
-    const [isModalVisible, setIsModalVisible] = useState(false); // State to control modal visibility
+    const [isModalVisible, setIsModalVisible] = useState(false); 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -17,11 +17,11 @@ const ItemPage = () => {
     }, [navigate]);
 
     const handleAddItemClick = () => {
-        setIsModalVisible(true); // Show the modal when the button is clicked
+        setIsModalVisible(true);
     };
 
     const handleCloseModal = () => {
-        setIsModalVisible(false); // Close the modal
+        setIsModalVisible(false); 
     };
 
     return (
@@ -39,7 +39,7 @@ const ItemPage = () => {
                 </div>
             </div>
 
-            <ItemAdd isVisible={isModalVisible} onClose={handleCloseModal} /> {/* Add the ItemAdd modal here */}
+            <ItemAdd isVisible={isModalVisible} onClose={handleCloseModal} /> {}
         </div>
     );
 };

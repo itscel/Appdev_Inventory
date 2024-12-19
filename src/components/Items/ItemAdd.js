@@ -3,17 +3,17 @@ import './ItemAdd.css';
 
 const ItemAdd = ({ isVisible, onClose }) => {
     const [itemName, setItemName] = useState('');
-    const [size, setSize] = useState(''); // Single size
-    const [quantity, setQuantity] = useState(''); // Single quantity
+    const [size, setSize] = useState(''); 
+    const [quantity, setQuantity] = useState(''); 
     const [price, setPrice] = useState('');
     const [category, setCategory] = useState('');
     const [subCategory, setSubCategory] = useState('');
     const [supplier, setSupplier] = useState('');
     const [availableSuppliers, setAvailableSuppliers] = useState([]);
     const [userId, setUserId] = useState([]);
-    const [isSubmitted, setIsSubmitted] = useState(false); // Track form submission
+    const [isSubmitted, setIsSubmitted] = useState(false); 
 
-    // Retrieve user ID from localStorage
+    
     useEffect(() => {
         const userID = localStorage.getItem('userID');
         console.log('Fetched userID:', userID);
@@ -24,7 +24,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
         }
     }, []);
 
-    // Fetch suppliers if modal is visible
+    
     useEffect(() => {
         const fetchSuppliers = async () => {
             try {
@@ -35,7 +35,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
                 const data = await response.json();
                 console.log('Fetched suppliers:', data);
 
-                // Make sure the response contains the suppliers array
+                
                 if (data.suppliers && Array.isArray(data.suppliers)) {
                     setAvailableSuppliers(data.suppliers);
                 } else {
@@ -55,7 +55,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
 
 
     const handleAddItem = async () => {
-        setIsSubmitted(true); // Mark form as submitted
+        setIsSubmitted(true); 
 
         if (!userId) {
             alert('User is not logged in');
@@ -87,7 +87,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
             return;
         }
 
-        // Ensure quantity is valid (non-negative)
+        
         const validatedSize = size.trim() && quantity.trim() ? { size, quantity: quantity || 0 } : null;
 
         if (!validatedSize) {
@@ -98,7 +98,7 @@ const ItemAdd = ({ isVisible, onClose }) => {
         const newItem = {
             name: itemName,
             price: Number(price),
-            sizes: [validatedSize], // Single size and quantity pair
+            sizes: [validatedSize], 
             category,
             subCategory,
             supplierId: supplier,
@@ -143,11 +143,11 @@ const ItemAdd = ({ isVisible, onClose }) => {
 
     const handleCategoryChange = (e) => {
         setCategory(e.target.value);
-        setSubCategory(''); // Reset sub-category when category changes
+        setSubCategory(''); 
     };
 
     const renderSubCategories = () => {
-        // Check the selected category and return corresponding subcategories
+        
         if (category === 'Men') {
             return (
                 <>
@@ -181,12 +181,12 @@ const ItemAdd = ({ isVisible, onClose }) => {
             );
         }
 
-        // Default option if no category is selected
+        
         return <option value="" disabled>Select a sub-category</option>;
     };
 
 
-    // Function to apply red border if field is empty and the form is submitted
+   
     const getFieldStyle = (value) => {
         return isSubmitted && !value.trim() ? { borderColor: 'red' } : {};
     };

@@ -22,11 +22,11 @@ const LoginPage = ({ login }) => {
       });
 
       const data = await response.json();
-      console.log(data); // Log the response for debugging
+      console.log(data); 
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('userID', data.user.id);  // Correct key to access userID
+        localStorage.setItem('userID', data.user.id);  
         login();
         navigate('/');
       }
@@ -45,7 +45,7 @@ const LoginPage = ({ login }) => {
   return (
     <div className="login-container">
       <div className="logo">
-        {/* <img src="logo.png" alt="Logo" /> */}
+        {}
       </div>
       <div className="main-heading">Welcome Back!</div>
       <div className="sub-heading">Login to your account</div>

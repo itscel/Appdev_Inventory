@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SidebarPage from '../SideBar/SideBarPage';
-import SupplierAdd from './SupplierAdd'; // Import the SupplierAdd component
+import SupplierAdd from './SupplierAdd'; 
 import SupplierBox from './SupplierBox';
 import './SupplierPage.css';
 
 const SupplierPage = () => {
     const navigate = useNavigate();
-    const [isModalVisible, setIsModalVisible] = useState(false); // State to control modal visibility
+    const [isModalVisible, setIsModalVisible] = useState(false); 
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -18,11 +18,11 @@ const SupplierPage = () => {
     }, [navigate]);
 
     const handleAddSupplierClick = () => {
-        setIsModalVisible(true); // Show the modal when the button is clicked
+        setIsModalVisible(true); 
     };
 
     const handleCloseModal = () => {
-        setIsModalVisible(false); // Close the modal
+        setIsModalVisible(false);
     };
 
     return (
@@ -40,7 +40,7 @@ const SupplierPage = () => {
                 </div>
             </div>
 
-            <SupplierAdd isVisible={isModalVisible} onClose={handleCloseModal} /> {/* Add the SupplierAdd modal here */}
+            <SupplierAdd isVisible={isModalVisible} onClose={handleCloseModal} /> {}
         </div>
     );
 };

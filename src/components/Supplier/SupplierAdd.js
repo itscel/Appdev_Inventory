@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import './SupplierAdd.css'; // Make sure to style the modal appropriately
+import './SupplierAdd.css'; 
 
 const SupplierAdd = ({ isVisible, onClose }) => {
     const [companyName, setCompanyName] = useState('');
     const [contactInfo, setContactInfo] = useState('');
     const [email, setEmail] = useState('');
-    const [address, setAddress] = useState(''); // New state for address
+    const [address, setAddress] = useState(''); 
     const [userId, setUserId] = useState([]);
-    const [tooltip, setTooltip] = useState({}); // Tooltip state for multiple messages
-    const [errorFields, setErrorFields] = useState({}); // Track error state for input fields
+    const [tooltip, setTooltip] = useState({}); 
+    const [errorFields, setErrorFields] = useState({}); 
 
-    // Retrieve user ID from localStorage
+    
     useEffect(() => {
         const userID = localStorage.getItem('userID');
-        console.log('Fetched userID:', userID); // Log to ensure userId is fetched correctly
+        console.log('Fetched userID:', userID); 
         if (userID) {
             setUserId(userID);
         } else {
@@ -24,7 +24,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
     const handleAddSupplier = async () => {
         let isValid = true;
 
-        // Reset tooltip and error fields
+        
         setTooltip({});
         setErrorFields({});
 
@@ -34,7 +34,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
             setErrorFields((prev) => ({ ...prev, companyName: true, contactInfo: true, email: true, address: true }));
         }
 
-        // Validate contactInfo (must be 11 digits)
+        
         const contactInfoPattern = /^[0-9]{11}$/;
         if (!contactInfoPattern.test(contactInfo)) {
             setTooltip((prev) => ({ ...prev, contactInfo: 'Contact information must be exactly 11 digits.' }));
@@ -42,7 +42,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
             setErrorFields((prev) => ({ ...prev, contactInfo: true }));
         }
 
-        // Validate email (must end with @gmail.com)
+        
         if (!email.endsWith('@gmail.com')) {
             setTooltip((prev) => ({ ...prev, email: 'Email must be a Gmail address.' }));
             isValid = false;
@@ -55,7 +55,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
             companyName,
             contactInfo,
             email,
-            address, // Including address in the request body
+            address, 
             userId,
         };
 
@@ -76,14 +76,14 @@ const SupplierAdd = ({ isVisible, onClose }) => {
             console.log('Supplier added:', data);
             alert(`Supplier "${companyName}" added successfully!`);
 
-            // Reset the form and close the modal
+            
             onClose();
             setCompanyName('');
             setContactInfo('');
             setEmail('');
-            setAddress(''); // Clear the address field
-            setTooltip({}); // Clear tooltips after success
-            setErrorFields({}); // Clear error field highlights
+            setAddress(''); 
+            setTooltip({}); 
+            setErrorFields({}); 
         } catch (error) {
             console.error('Error adding supplier:', error);
             alert('Failed to add supplier');
@@ -113,7 +113,7 @@ const SupplierAdd = ({ isVisible, onClose }) => {
                     placeholder="Enter contact information"
                     value={contactInfo}
                     onChange={(e) => setContactInfo(e.target.value)}
-                    maxLength="11" // Limit to 11 characters
+                    maxLength="11" 
                     className={errorFields.contactInfo ? 'error' : ''}
                 />
                 {tooltip.contactInfo && <div className="tooltip">{tooltip.contactInfo}</div>}

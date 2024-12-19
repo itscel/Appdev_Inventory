@@ -3,7 +3,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, ArcElement, Title, Tooltip, Legend } from 'chart.js';
 import './StocksByCategory.css'
 
-// Register Chart.js components
+
 ChartJS.register(CategoryScale, ArcElement, Title, Tooltip, Legend);
 
 const StockByCategory = () => {
@@ -39,7 +39,7 @@ const StockByCategory = () => {
                 const data = await response.json();
                 setItems(data.items);
 
-                // Group items by category and filter for low stock
+                
                 const groupedStock = {
                     Men: [],
                     Women: [],
@@ -64,7 +64,7 @@ const StockByCategory = () => {
         fetchItems();
     }, []);
 
-    // Prepare data for the Doughnut chart (Low stock by category)
+    
     const chartData = {
         labels: ['Men', 'Women', 'Kids'],
         datasets: [
@@ -75,8 +75,8 @@ const StockByCategory = () => {
                     StockByCategory.Women?.reduce((acc, item) => acc + item.sizes.filter(size => size.quantity < 10).length, 0) || 0,
                     StockByCategory.Kids?.reduce((acc, item) => acc + item.sizes.filter(size => size.quantity < 10).length, 0) || 0,
                 ],
-                backgroundColor: ['#6E3482', '#49225B', '#A56ABD'], // Different colors for each segment
-                borderColor: '#FFFFFF', // Border color for the slices
+                backgroundColor: ['#6E3482', '#49225B', '#A56ABD'], 
+                borderColor: '#FFFFFF', 
                 borderWidth: 2,
             },
         ],
